@@ -52,7 +52,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.3</version>
+            <version>1.2.58</version>
         </dependency>
         <!-- Json支持  json-lib -->
         <dependency>
