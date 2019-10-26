@@ -4,10 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <title>用户列表</title>
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/static/css/favicon.ico}" />
+    <link rel="icon" th:href="@{/static/css/favicon.ico}" type="image/gif" />
     <link rel="stylesheet" th:href="@{/static/bootstrap-3.3.7-dist/css/bootstrap.css}">
     <link rel="stylesheet" th:href="@{/static/bootstrap-table-master/dist/bootstrap-table.css}">
     <link rel="stylesheet" th:href="@{/static/summernote/dist/summernote.css}">
+    <link rel="stylesheet" th:href="@{/static/css/mytips.css}">
+    <link rel="stylesheet" th:href="@{/static/css/jquery-confirm.css}">
     <script th:src="@{/static/jquery-2.1.4/jquery.js}"></script>
+    <script th:src="@{/static/js/myTips.js}"></script>
+    <script th:src="@{/static/js/jquery-confirm.min.js}"></script>
     <script th:src="@{/static/bootstrap-3.3.7-dist/js/bootstrap.js}"></script>
     <script th:src="@{/static/bootstrap-table-master/dist/bootstrap-table.js}"></script>
     <script th:src="@{/static/bootstrap-table-master/dist/locale/bootstrap-table-zh-CN.js}"></script>
@@ -17,8 +23,8 @@
 </head>
 <body>
 <!--萝莉动漫人-->
-<script src="https://cdn.jsdelivr.net/npm/live2d-widget@3.1.4/lib/L2Dwidget.min.js"></script> 
-<script type="text/javascript"> L2Dwidget.init(); console.log("https://github.com/stevenjoezhang/live2d-widget")</script>
+<!--<script src="https://cdn.jsdelivr.net/npm/live2d-widget@3.1.4/lib/L2Dwidget.min.js"></script> -->
+<!--<script type="text/javascript"> L2Dwidget.init(); console.log("https://github.com/stevenjoezhang/live2d-widget")</script>-->
 
 <script type="text/javascript" th:inline="javascript">
     /*<![CDATA[*/
@@ -37,7 +43,7 @@
 
     </div>
     <table id="usertable">
-        <thead>
+        <!--<thead>
             <th data-class="tWidth" data-field="id" data-halign="center" data-align="center">ID</th>
             <th data-class="tWidth" data-field="username" data-halign="center" data-align="center">用户名</th>
             <th data-class="tWidth" data-field="address" data-halign="center" data-align="center">地址</th>
@@ -45,7 +51,7 @@
         </thead>
         <tbody>
 
-        </tbody>
+        </tbody>-->
     </table>
 </div>
 <span class="label label-default">Default</span>
@@ -57,8 +63,8 @@
 <button class="btn btn-primary" type="button">
     Messages <span class="badge">42</span>
 </button>
-<!--查看公告-->
-<div class="modal fade" id="scranModal" data-backdrop="static" data-keyboard="false" role="dialog">
+<!--查看用户窗口-->
+<div class="modal fade" id="lookModal" data-backdrop="static" data-keyboard="false" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -98,7 +104,7 @@
                         </div>
                     </div>
                     <!--富文本框-->
-                    <div class="summernote"></div>
+                    <div class="summernote" id="readRemark"></div>
                 </form>
             </div>
             <div class="modal-footer">
@@ -107,13 +113,77 @@
         </div>
     </div>
 </div>
-<div id="myAlert" class="alert alert-success" style="width: 250px">
-    <a href="#" class="close" data-dismiss="alert">&times;</a>
+<!--新增用户窗口-->
+<div class="modal fade" id="insertModal" data-backdrop="static" data-keyboard="false" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" onclick="">&times;</button>
+                <h4 class="modal-title">查看用户详细信息</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">用户名</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control " id="userId" style="display: none" />
+                            <input type="text" class="form-control " id="addUsername" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">地址</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control " id="addAddress" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">年龄</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="addAge" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">联系电话</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="addTelephone" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">上传文件</label>
+                        <div class="col-sm-10">
+                            <button type="button" class="btn btn-success" onclick="">上传图片</button>
+                        </div>
+                    </div>
+                    <!--富文本框-->
+                    <div class="summernote" id="addRemark"></div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="insertUser" type="submit" class="btn btn-primary" onclick="insertUser()">保存</button>
+                <button id="updateUser" type="submit" class="btn btn-primary" onclick="updateUser()">保存</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<p><strong>.fade 和 .show 类用于设置提示框在关闭时的淡出和淡入效果：</strong></p>
+<div id="myAlert1" class="alert alert-success alert-dismissible show" style="width: 250px;z-index: 99">
+    <!--<a href="#" class="close" data-dismiss="alert">&times;</a>-->
+    <a href="#" class="close" onclick="closeAlert('myAlert1')">&times;</a>
     <strong>成功！</strong>结果是成功的。
 </div>
-<div id="myAlert2" class="alert alert-warning" style="width: 250px">
-    <a href="#" class="close" data-dismiss="alert">&times;</a>
+<div id="myAlert2" class="alert alert-warning alert-dismissible show" style="width: 250px;z-index: 99">
+    <a href="#" class="close" onclick="closeAlert('myAlert2')">&times;</a>
     <strong>警告！</strong>您的网络连接有问题。
+</div>
+<div id="myAlert3" class="alert alert-info alert-dismissible show" style="width: 250px;z-index: 99">
+    <a href="#" class="close" onclick="closeAlert('myAlert3')">&times;</a>
+    <strong>信息!</strong> 请注意这个信息。
+</div>
+<div id="myAlert4" class="alert alert-danger alert-dismissible show" style="width: 250px;z-index: 99">
+<!--    <button type="button" class="close" data-dismiss="alert">&times;</button>-->
+    <a href="#" class="close" onclick="closeAlert('myAlert4')">&times;</a>
+    <strong>错误!</strong> 失败的操作。
 </div>
 
 </body>

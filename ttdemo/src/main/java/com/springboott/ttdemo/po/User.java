@@ -2,8 +2,9 @@ package com.springboott.ttdemo.po;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 import java.io.Serializable;
 
@@ -15,31 +16,32 @@ import java.io.Serializable;
  * @author Sam
  * @since 2019-09-04
  */
-@Api("用户实体类")
+@Data
+@ApiModel(value = "User对象", description = "用户信息表")
 public class User implements Serializable {
 
     private static final long serialVersionUID=1L;
 
     @TableId(value = "id", type = IdType.AUTO)
-    @ApiModelProperty(notes = "用户id")
+    @ApiModelProperty(notes = "用户id",example = "1")
     private Integer id;
 
-    @ApiModelProperty(notes = "用户名")
+    @ApiModelProperty(notes = "用户名",example = "张三")
     private String username;
 
-    @ApiModelProperty(notes = "用户密码")
+    @ApiModelProperty(notes = "用户密码",example = "123456")
     private String password;
 
-    @ApiModelProperty(notes = "年龄")
+    @ApiModelProperty(notes = "年龄",example = "27")
     private Integer age;
 
-    @ApiModelProperty(notes = "联系电话")
+    @ApiModelProperty(notes = "联系电话",example = "13512312311")
     private String telephone;
 
-    @ApiModelProperty(notes = "地址")
+    @ApiModelProperty(notes = "地址",example = "xx省xx市xx区xxxx")
     private String address;
 
-    @ApiModelProperty(notes = "备注")
+    @ApiModelProperty(notes = "备注",example = "备注")
     private String remark;
 
     public User() {
@@ -58,73 +60,5 @@ public class User implements Serializable {
         this.telephone = telephone;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    public String getTelephone() {
-        return telephone;
-    }
-
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-        "id=" + id +
-        ", username=" + username +
-        ", password=" + password +
-        ", age=" + age +
-        ", telephone=" + telephone +
-        ", address=" + address +
-        ", remark=" + remark +
-        "}";
-    }
 
 }

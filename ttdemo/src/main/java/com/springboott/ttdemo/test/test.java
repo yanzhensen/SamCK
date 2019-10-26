@@ -1,5 +1,6 @@
 package com.springboott.ttdemo.test;
 
+import com.alibaba.fastjson.JSON;
 import com.springboott.ttdemo.po.User;
 import com.springboott.ttdemo.po.UserClone;
 import io.swagger.models.auth.In;
@@ -212,11 +213,41 @@ public class test {
         System.out.println(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE));
         System.out.println(LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
         System.out.println(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));*/
-        System.out.println("System.getProperty(\"user.dir\") = " + System.getProperty("user.dir"));
+
+        /*System.out.println("System.getProperty(\"user.dir\") = " + System.getProperty("user.dir"));
         System.out.println("StringUtils.isEmpty(\"\") = " + StringUtils.isEmpty(""));
         System.out.println("StringUtils.isEmpty(\" \") = " + StringUtils.isEmpty(" "));
         System.out.println("StringUtils.isBlank(\"\") = " + StringUtils.isBlank(""));
-        System.out.println("StringUtils.isBlank(\" \") = " + StringUtils.isBlank(" "));
+        System.out.println("StringUtils.isBlank(\" \") = " + StringUtils.isBlank(" "));*/
+        /*JSONObject js = new JSONObject();
+        js.put("toUserId","1");
+        js.put("toUserType","face");
+        js.put("wxOpenid","");
+        js.put("scene","4");
+        js.put("firstValue","尊敬的****");
+        js.put("keyValue1","张三");//姓名
+        js.put("keyValue2",date1);//时间
+        js.put("keyValue3","已到校");
+        js.put("remarkValue","感谢您的关注");
+        Map<String, String> mapSm = new HashMap<String, String>();
+        mapSm.put("co", String.valueOf(1));
+        mapSm.put("coId", String.valueOf(2));
+        mapSm.put("jtm", JSON.toJSONString(js));
+        System.out.println("mapSm = " + mapSm);*/
+        /*
+        List<User> list = new ArrayList<>();
+        if(list!=null&&list.size()>0){
+            System.out.println("list.size() = " + list.size());
+        }
+
+        String err = "failure remote invoke: {\"code\":\"WO_EXP-120\",\"msg\":\"cardEnable type is undefined\",\"result\":0}";
+        System.out.println("err.indexOf(\"{\") = " + err.indexOf("{"));
+        System.out.println("err.indexOf(\"}\") = " + err.indexOf("}"));
+        String errstr = err.substring(err.indexOf("{"),err.indexOf("}")+1);
+        System.out.println(errstr);
+        Integer maxInteger = 2147483647;
+        */
+
 
     }
 }

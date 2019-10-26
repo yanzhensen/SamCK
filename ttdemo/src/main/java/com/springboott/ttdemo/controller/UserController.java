@@ -9,8 +9,7 @@ import com.github.pagehelper.PageInfo;
 import com.springboott.ttdemo.po.User;
 import com.springboott.ttdemo.service.UserService;
 import com.springboott.ttdemo.util.Result;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,7 +25,7 @@ import java.util.List;
  * @author Sam
  * @since 2019-09-04
  */
-@Api(value = "用户管理类")
+@Api(tags = "用户管理类")
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -35,15 +34,26 @@ public class UserController {
 
 
     @ApiOperation(value="获取用户列表", notes="查询用户信息（分页）")
-    @RequestMapping(value = "/",method = RequestMethod.GET)
-    public JSONObject userList(ModelAndView mv, User user,
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "limit", value = "每页条数", paramType = "query"),
+            @ApiImplicitParam(name = "offset", value = "当前条数", paramType = "query")
+    })
+//    @RequestMapping(value = "/",method = RequestMethod.GET)
+    @GetMapping(value = "/")
+    public JSONObject userList(ModelAndView mv,@RequestParam(name = "search",defaultValue = "") String search,
                                  @RequestParam(name = "limit",defaultValue = "10") Integer limit,
-                                 @RequestParam(name = "offset",defaultValue = "0") Integer offset
+                                 @RequestParam(name = "offset",defaultValue = "0") Integer offset,
+                                 @RequestParam(name = "sort",defaultValue = "id") String sort,
+                                 @RequestParam(name = "sortOrder",defaultValue = "false") Boolean sortOrder
                                ){
         System.out.println("*****************"+offset);
         System.out.println("*****************"+limit);
         PageHelper.offsetPage(offset,limit);
-        List<User> lr = userService.list();
+        //新增模糊搜索
+        QueryWrapper<User> queryWrapper = new QueryWrapper<User>();
+        queryWrapper.orderBy(true,sortOrder,sort)
+                .lambda().like(User::getUsername, search);
+        List<User> lr = userService.list(queryWrapper);
         PageInfo<User> userList = new PageInfo<User>(lr);
         JSONObject js = new JSONObject();
         js.put("rows",userList.getList());
@@ -51,8 +61,46 @@ public class UserController {
         return js;
     }
 
-    @ApiOperation(value="获取用户列表", notes="")
-    @RequestMapping(value = "/abc",method = RequestMethod.GET)
+    @ApiOperation(value="新增用户", notes="新增用户")
+    @PostMapping(value = "/")
+    public Result<String> insertUser(User user){
+        Boolean result = userService.save(user);
+        if(result){
+            return new Result<>(1,"成功",null);
+        }else {
+            return new Result<>(-1, "失败", null);
+        }
+    }
+
+    @ApiOperation(value="修改用户信息", notes="根据用户id修改用户信息")
+    @ApiImplicitParam(paramType = "path",name = "id",value = "用户id",required = true,dataType = "Integer")
+    @ApiResponse(code = 400,message = "参数没有填好",response = String.class)
+    @PutMapping(value = "/")
+    public Result<String> updateUser(@ModelAttribute User user){
+        System.out.println("=========="+user);
+        Boolean result = userService.updateById(user);
+        if(result){
+            return new Result<>(1,"成功",null);
+        }else {
+            return new Result<>(-1, "失败", null);
+        }
+    }
+
+    @ApiOperation(value="删除用户", notes="根据用户id删除用户")
+    @ApiImplicitParam(paramType = "path",name = "id",value = "用户id",required = true,dataType = "Integer")
+    @ApiResponse(code = 400,message = "参数没有填好",response = String.class)
+    @DeleteMapping(value = "/{id}")
+    public Result<String> deleteUser(@PathVariable(value = "id") Integer id){
+        Boolean result = userService.removeById(id);
+        if(result){
+            return new Result<>(1,"成功",null);
+        }else {
+            return new Result<>(-1, "失败", null);
+        }
+    }
+
+    @ApiOperation(value="获取用户列表", notes="测试用post获取，返回Result")
+    @GetMapping(value = "/abc")
     public Result<String> userList(User user){
         QueryWrapper<User> queryWrapper = new QueryWrapper<User>();
         queryWrapper.lambda().eq(User::getUsername, "五位两");
@@ -66,12 +114,6 @@ public class UserController {
         }
     }
 
-    @RequestMapping("/errorTest")
-    public ModelAndView errorTest(ModelAndView mv, User user){
-        user =  userService.getById(Integer.parseInt("sdsd"));
-        System.out.println(user);
-        mv.addObject(user);
-        return mv;
-    }
+
 }
 
