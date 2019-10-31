@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -114,6 +115,30 @@ public class UserController {
         }
     }
 
+    @PostMapping(value = "/login")
+    public ModelAndView login(User user, ModelAndView mv, HttpSession session){
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda().eq(User::getUsername, user.getUsername()).eq(User::getPassword, user.getPassword());
+        User u = userService.getOne(queryWrapper);
+        if(u!=null){
+            session.setAttribute("userInfo",u);
+            mv.setViewName("redirect:/go/main");
+            return mv;
+        }
+        mv.addObject("error","账号或者密码错误");
+        mv.setViewName("redirect:/go/login");
+        return mv;
+    }
+
+    @GetMapping(value = "/logout")
+    public ModelAndView logout(ModelAndView mv, HttpSession session){
+        Object u = session.getAttribute("userInfo");
+        if(u!=null){
+            session.removeAttribute("userInfo");
+        }
+        mv.setViewName("redirect:/go/Index");
+        return mv;
+    }
 
 }
 

@@ -5,8 +5,12 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.Collections;
 
 /**
  * <p>
@@ -18,7 +22,7 @@ import java.io.Serializable;
  */
 @Data
 @ApiModel(value = "User对象", description = "用户信息表")
-public class User implements Serializable {
+public class User implements Serializable, UserDetails {
 
     private static final long serialVersionUID=1L;
 
@@ -61,4 +65,33 @@ public class User implements Serializable {
     }
 
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        // 这里可以定制化权限列表
+        return Collections.EMPTY_LIST;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        // 这里设置账号是否已经过期
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        // 这里设置账号是否已经被锁定
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        // 这里设置凭证是否过期
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        // 是否可用
+        return true;
+    }
 }

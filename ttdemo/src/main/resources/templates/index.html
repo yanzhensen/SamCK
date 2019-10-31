@@ -4,12 +4,28 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        body{
+            background-attachment: fixed;
+            background-size: cover;
+            background-repeat: no-repeat;
+            /*opacity: 0.5;*/
+        }
+    </style>
 </head>
 <script th:src="@{/static/jquery-2.1.4/jquery.js}"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
-<script th:src="@{/static/live2d-widget/autoload.js}"></script>
-<script th:src="@{/static/live2d-widget/live2d.min.js}"></script>
-<body>
-<h1>this is index</h1>
+<link rel="stylesheet" th:href="@{/static/bootstrap-3.3.7-dist/css/bootstrap.css}">
+<!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">-->
+<!--<script th:src="@{/static/live2d-widget/autoload.js}"></script>-->
+<!--<script th:src="@{/static/live2d-widget/live2d.min.js}"></script>-->
+
+<body th:background="@{/static/images/index1.jpg}">
+<div id="sss">
+    <div class="jumbotron" style="margin-top: 200px" align="center" >
+        <h1>Hello, world!</h1>
+        <p>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+        <p><a class="btn btn-primary btn-lg" href="#" th:href="@{/go/login}" role="button">Sign in</a></p>
+    </div>
+</div>
 </body>
 </html>

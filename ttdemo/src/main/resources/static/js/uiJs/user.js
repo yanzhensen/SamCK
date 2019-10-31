@@ -1,4 +1,6 @@
 $(function() {
+    //禁用浏览器自动完成
+    //$('input').attr('autocomplete', 'off');
     InitMainTable();
 })
 //初始化
