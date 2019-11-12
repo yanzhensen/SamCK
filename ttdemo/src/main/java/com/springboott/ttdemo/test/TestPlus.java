@@ -79,7 +79,11 @@ public class TestPlus {
             String username = i.getUsername();
             System.out.println(id+"  "+username+"  "+age);
         });*/
-
+        List<User> userList1 = userMapper.selectList(new QueryWrapper<User>().lambda().in(User::getId, 1, 2, 3, 4, 5, 6));
+        List<User> userList2 = userMapper.selectList(new QueryWrapper<User>().lambda().in(User::getId, 1, 2, 3));
+        userList1.addAll(userList2);
+        Set<User> set = new HashSet<>(userList1);
+        set.forEach(System.out::println);
     }
 
     @Test

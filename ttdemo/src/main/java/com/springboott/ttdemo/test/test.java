@@ -1,8 +1,10 @@
 package com.springboott.ttdemo.test;
 
 import com.alibaba.fastjson.JSON;
+import com.springboott.ttdemo.enums.ErrorCodeEnum;
 import com.springboott.ttdemo.po.User;
 import com.springboott.ttdemo.po.UserClone;
+import com.springboott.ttdemo.util.ApiAssert;
 import io.swagger.models.auth.In;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -248,6 +250,14 @@ public class test {
         Integer maxInteger = 2147483647;
         */
 
+        //获取当前时间格式化
+//        String nowdate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+//        System.out.println("nowdate = " + nowdate);
 
+        String fo ="2019-11-06 18:52:52";
+        LocalDateTime localDateTime = LocalDateTime.parse(fo,DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        System.out.println("localDateTime = " + localDateTime);
+        System.out.println(localDateTime.toLocalDate()+" "+localDateTime.toLocalTime());;
+        ApiAssert.isTrue(ErrorCodeEnum.NOT_FOUND,true);
     }
 }
