@@ -8,27 +8,33 @@ public class Result<T> {
     public Integer getCode() {
         return code;
     }
+
     public void setCode(Integer code) {
         this.code = code;
     }
+
     public String getMsg() {
         return msg;
     }
+
     public void setMsg(String msg) {
         this.msg = msg;
     }
+
     public T getBody() {
         return body;
     }
+
     public void setBody(T body) {
         this.body = body;
     }
 
-    public Result(Integer code,String msg,T body){
+    public Result(Integer code, String msg, T body) {
         this.setCode(code);
         this.setBody(body);
         this.setMsg(msg);
     }
+
     @Override
     public String toString() {
         return "Result [code=" + code + ", msg=" + msg + ", body=" + body + "]";

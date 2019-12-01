@@ -1,11 +1,7 @@
 package com.springboott.ttdemo.test;
 
-import com.baomidou.mybatisplus.core.conditions.AbstractWrapper;
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -79,13 +75,59 @@ public class TestPlus {
             String username = i.getUsername();
             System.out.println(id+"  "+username+"  "+age);
         });*/
-        List<User> userList1 = userMapper.selectList(new QueryWrapper<User>().lambda().in(User::getId, 1, 2, 3, 4, 5, 6));
+        /*List<User> userList1 = userMapper.selectList(new QueryWrapper<User>().lambda().in(User::getId, 1, 2, 3, 4, 5, 6));
         List<User> userList2 = userMapper.selectList(new QueryWrapper<User>().lambda().in(User::getId, 1, 2, 3));
         userList1.addAll(userList2);
         Set<User> set = new HashSet<>(userList1);
-        set.forEach(System.out::println);
+        set.forEach(System.out::println);*/
+        /*List<Integer> ids = Arrays.asList(1,2,3);
+        List<User> userList = new LinkedList<>();
+        User u = userMapper.selectById(20);
+        for (Integer id : ids) {
+            System.out.println("id = " + id);
+            u.setId(id);
+            userList.add(u);
+        }
+        userList.forEach(System.out::println);*/
+        List<User> ls = new LinkedList<>();
+        int[] ss = new int[6];
+        User u1 = userMapper.selectById(20);
+        ls.add(u1);
+        ss[0]=10;
+        String str = "123";
+        aaa(ls,ss,str);
+        System.out.println("ls = " + ls);
+        for (int s : ss) {
+            System.out.println("s = " + s);
+        }
+        System.out.println("str = " + str);
+    }
+    public static void aaa(List<User> ls,int[] ss,String str){
+        User u2 = new User();
+        u2.setUsername("1234124sadsaf");
+        ls.add(u2);
+        ss[1]=5;
+        str="yzs";
     }
 
+    @Test
+    public void allText() {
+        List<User> userList1 = userMapper.selectList(new QueryWrapper<User>().lambda().in(User::getId, 1, 2, 3, 4, 5, 6));
+        for (User user : userList1) {
+            user.setPassword("456");
+            user.setAge(40);
+        }
+        userList1.forEach(System.out::println);
+        /*QueryWrapper<User> queryWrapper = new QueryWrapper();
+        queryWrapper.select("max(age) max");
+        List<Map<String, Object>> uxxc = userMapper.selectMaps(queryWrapper);
+        System.out.println("uxxc = " + uxxc);
+        Map<String, Object> stringObjectMap = uxxc.get(0);
+        System.out.println(stringObjectMap.get("max"));*/
+        /*boolean update = new LambdaUpdateChainWrapper<User>(userMapper).eq(User::getId, 10)
+                .set(User::getAge, 35).set(User::getTelephone,"13333456789")
+                .set(User::getPassword,456).update();*/
+    }
     @Test
     public void queryWrapperText() {
         QueryWrapper<User> queryWrapper = new QueryWrapper();

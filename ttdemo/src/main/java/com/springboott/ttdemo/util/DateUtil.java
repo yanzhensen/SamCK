@@ -429,8 +429,10 @@ public class DateUtil {
         long endMillis = cal.getTimeInMillis();
         return (int) ((endMillis - beginMillis) / (1000 * 3600 * 24));
     }
+
     /**
      * 比较两个时间的大小
+     *
      * @param begin
      * @param end
      * @return
@@ -471,7 +473,7 @@ public class DateUtil {
         int eDay = endCal.get(Calendar.DAY_OF_MONTH);
         // 算出合约期内的总月数
         monthday = ((eYear - sYear) * 12 + (eMonth - sMonth));
-        System.out.println("===================="+monthday);
+        System.out.println("====================" + monthday);
         // 如果开始日期为一个月的第一天，结束日期是一个月的最后一天，则总月数加一（05.01~06.30）
         if (starCal.getActualMinimum(Calendar.DAY_OF_MONTH) == sDay
                 && endCal.getActualMaximum(Calendar.DAY_OF_MONTH) == eDay) {
@@ -503,7 +505,7 @@ public class DateUtil {
                 String newDate = dateAddSub(startDate, arr[0] * 3);
                 arr[1] = getDayDiff(newDate, endDate) + 1;
             } else {
-                System.out.println("________________"+monthday);
+                System.out.println("________________" + monthday);
                 arr[0] = monthday;
                 arr[1] = 1;
             }

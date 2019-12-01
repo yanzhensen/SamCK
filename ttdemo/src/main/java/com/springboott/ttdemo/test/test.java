@@ -1,13 +1,14 @@
 package com.springboott.ttdemo.test;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.springboott.ttdemo.enums.ErrorCodeEnum;
 import com.springboott.ttdemo.po.User;
 import com.springboott.ttdemo.po.UserClone;
 import com.springboott.ttdemo.util.ApiAssert;
+import com.springboott.ttdemo.util.LocalDateTimeUtils;
 import io.swagger.models.auth.In;
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
 import org.apache.commons.lang3.StringUtils;
 import org.eclipse.jdt.internal.compiler.batch.FileSystem;
@@ -254,10 +255,25 @@ public class test {
 //        String nowdate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 //        System.out.println("nowdate = " + nowdate);
 
+        /*
         String fo ="2019-11-06 18:52:52";
         LocalDateTime localDateTime = LocalDateTime.parse(fo,DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         System.out.println("localDateTime = " + localDateTime);
         System.out.println(localDateTime.toLocalDate()+" "+localDateTime.toLocalTime());;
         ApiAssert.isTrue(ErrorCodeEnum.NOT_FOUND,true);
+        System.out.println("LocalDateTime.now() = " + LocalDateTime.now());
+        System.out.println("LocalDateTimeUtils.formatNow(\"yyyy-MM-dd HH:mm:ss\") = " + LocalDateTimeUtils.formatNow("yyyy-MM-dd HH:mm:ss"));
+        */
+
+        /*String jsonA = "[{'number':'xn143','jcdId':716,'jcdHouseAddress':'田贝新村 81栋 0703'}" +
+                ",{'number':'xn144','jcdId':716,'jcdHouseAddress':'田贝新村 81栋 0703'}]";
+        JSONArray jsonArray = JSONArray.parseArray(jsonA);
+        for (int i = 0; i < jsonArray.size(); i++) {
+            JSONObject js = jsonArray.getJSONObject(i);
+            System.out.println("js.getString(\"number\") = " + js.getString("number"));
+        }*/
+        System.out.println(LocalDate.now());
+        System.out.println(LocalDate.now().plusDays(40));
+
     }
 }

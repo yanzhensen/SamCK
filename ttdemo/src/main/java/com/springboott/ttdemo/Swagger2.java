@@ -52,6 +52,7 @@ public class Swagger2 extends WebMvcConfigurationSupport {
                 .paths(PathSelectors.any())
                 .build();
     }
+
     //http://localhost:8081/ttdemo/swagger-ui.html#/
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
@@ -69,6 +70,7 @@ public class Swagger2 extends WebMvcConfigurationSupport {
         registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
         registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
+
     @Bean
     public FormContentFilter formContentFilter() {
         //配置http put请求传参无效
