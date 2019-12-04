@@ -9,7 +9,6 @@ import com.baomidou.mybatisplus.generator.config.converts.MySqlTypeConvert;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,18 +20,22 @@ import java.util.List;
 public class MpGenerator {
 
     /**
-     *
+     * @param args
      * @Title: main
      * @Description: 生成
-     * @param args
      */
     public static void main(String[] args) {
-        AutoGenerator mpg = new AutoGenerator();
+        SuperGenerator mysqlGenerator = new SuperGenerator();
+        mysqlGenerator.generator("Sam", 1, "",
+                new String[] { "user_role","role","role_permission","permission" });
+        /*AutoGenerator mpg = new AutoGenerator();
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
         //当前程序所在目录 C:\Users\Administrator\Desktop\11\ttdemo
         //System.out.println("System.getProperty(\"user.dir\") = " + System.getProperty("user.dir"));
-        gc.setOutputDir("C://Users/Administrator/Desktop/11/ttdemo/src/main/java");//输出文件路径
+        String javaPath = System.getProperty("user.dir") + "/src/main/java";
+        gc.setOutputDir(javaPath);//输出文件路径
+//        gc.setOutputDir("C://Users/Administrator/Desktop/11/ttdemo/src/main/java");//输出文件路径
         gc.setFileOverride(true);
         gc.setActiveRecord(false);// 不需要ActiveRecord特性的请改为false
         gc.setEnableCache(false);// XML 二级缓存
@@ -47,6 +50,7 @@ public class MpGenerator {
 //        gc.setEntityName("%sEntity");
         gc.setMapperName("%sMapper");
         gc.setXmlName("%sMapper");
+
         mpg.setGlobalConfig(gc);
 
         // 自定义配置
@@ -71,7 +75,7 @@ public class MpGenerator {
         StrategyConfig strategy = new StrategyConfig();
         // strategy.setTablePrefix(new String[] { "sys_" });// 此处可以修改为您的表前缀
         strategy.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
-        strategy.setInclude(new String[] { "product" }); // 需要生成的表
+        strategy.setInclude(new String[] { "user_role","role","role_permission","permission" }); // 需要生成的表
         strategy.setSuperServiceClass(null);
         strategy.setSuperServiceImplClass(null);
         strategy.setSuperMapperClass(null);
@@ -87,7 +91,7 @@ public class MpGenerator {
         pc.setXml("mapper");
         mpg.setPackageInfo(pc);
         // 执行生成
-        mpg.execute();
+        mpg.execute();*/
 
     }
 
