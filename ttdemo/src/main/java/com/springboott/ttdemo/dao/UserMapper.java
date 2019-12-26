@@ -27,4 +27,5 @@ public interface UserMapper extends BaseMapper<User> {
     @Select("select * from user ${ew.customSqlSegment}")
     List<User> selectAll(@Param(Constants.WRAPPER)Wrapper<User> wrapper);
 
+    List<String> findAuthority(@Param(value = "username") String username);
 }

@@ -17,4 +17,13 @@
     </select>
 
 
+    <select id="findAuthority" resultType="string">
+        SELECT p.per_url FROM user u
+            left outer join user_role ur ON ur.user_id=u.id
+            left outer JOIN role r ON r.role_id = ur.role_id
+            LEFT OUTER JOIN role_permission rp ON rp.role_id = r.role_id
+            LEFT OUTER JOIN permission p ON p.per_id = rp.permission_id
+        WHERE u.username = ${username};
+    </select>
+
 </mapper>

@@ -1,10 +1,12 @@
 package com.springboott.ttdemo.service.impl;
 
-import com.springboott.ttdemo.po.User;
-import com.springboott.ttdemo.dao.UserMapper;
-import com.springboott.ttdemo.service.UserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.springboott.ttdemo.dao.UserMapper;
+import com.springboott.ttdemo.po.User;
+import com.springboott.ttdemo.service.UserService;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 /**
  * <p>
@@ -16,5 +18,8 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
+
+    @Resource
+    private UserMapper userMapper;
 
 }

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class PageJump {
 
     @ApiOperation(value="跳转用户列表", notes="")
-    @RequestMapping("go/{url}")
+    @RequestMapping("/go/{url}")
     public String goUserList(@PathVariable(value = "url") String url){
         return url;
     }

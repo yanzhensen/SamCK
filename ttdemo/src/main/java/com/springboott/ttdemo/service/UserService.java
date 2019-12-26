@@ -1,7 +1,7 @@
 package com.springboott.ttdemo.service;
 
-import com.springboott.ttdemo.po.User;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.springboott.ttdemo.po.User;
 
 /**
  * <p>

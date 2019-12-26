@@ -4,9 +4,11 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.springboott.ttdemo.enums.ErrorCodeEnum;
+import com.springboott.ttdemo.po.AllTypeEntity;
 import com.springboott.ttdemo.po.User;
 import com.springboott.ttdemo.po.UserClone;
 import com.springboott.ttdemo.util.ApiAssert;
+import com.springboott.ttdemo.util.ApiUtils;
 import com.springboott.ttdemo.util.LocalDateTimeUtils;
 import io.swagger.models.auth.In;
 import net.sf.json.JsonConfig;
@@ -15,6 +17,7 @@ import org.eclipse.jdt.internal.compiler.batch.FileSystem;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -58,7 +61,7 @@ public class test {
 //        date.add(2019-5-27, 5);//sdf.parse("2019-5-24")
 //        System.out.println(sdf.format(date.getTime()));
 
-//        String a = DateUtil.dayAddSub("2019-9-19",30);
+//        String a = DateUtils.dayAddSub("2019-9-19",30);
 //        System.out.println(a);
 //        for(int i = 0; i<5; i++){
 //            for(int j = 0; j<6; j++){
@@ -86,7 +89,7 @@ public class test {
 //        date.setTime(dt1);
 //        date.add(Calendar.DAY_OF_MONTH, 1);
 //        System.out.println(sdf.format(date.getTime()));
-//        date2 = DateUtil.dayAddSub(date2,1);
+//        date2 = DateUtils.dayAddSub(date2,1);
 //        Period period = Period.between(LocalDate.parse(date1), LocalDate.parse(sdf.format(date.getTime())));
 //        Period period = Period.between(LocalDate.parse(date1), LocalDate.parse(date2));
 //        StringBuffer sb = new StringBuffer();
@@ -95,7 +98,7 @@ public class test {
 //                .append(period.getDays());
 //        System.out.println(sb.toString());
 
-        //DateUtil.getCyclesAndDays(date1,date2,1);
+        //DateUtils.getCyclesAndDays(date1,date2,1);
 
 //        Integer a = 10;
 //        Integer b = 10;
@@ -134,7 +137,7 @@ public class test {
 //            e.printStackTrace();
 //        }
 
-//        System.out.println(DateUtil.getCurrentDateSecond());
+//        System.out.println(DateUtils.getCurrentDateSecond());
 
         //随机数
 //        System.out.println((int)(Math.random()*100));
@@ -274,6 +277,23 @@ public class test {
         }*/
         System.out.println(LocalDate.now());
         System.out.println(LocalDate.now().plusDays(40));
+        //1<2
+        if (LocalDate.now().isBefore(LocalDate.now().plusDays(40))) {
+            System.out.println("before: true");
+        }
+        if (LocalDate.now().isAfter(LocalDate.now().plusDays(40))) {
+            System.out.println("after: true");
+        }
+        if (LocalDate.now().isEqual(LocalDate.now())) {
+            System.out.println("now: true");
+        }
+        /*String randomNumber = String.valueOf((Math.random() * 1000000));
+        System.out.println("randomNumber = " + randomNumber);
+        int r1 = (int) (Math.random() * 1000000);
+        System.out.println("r1 = " + r1);*/
+
+//        Map<String, String> map1 = ApiUtils.getEntityType(AllTypeEntity.class);
+//        System.out.println("map1 = " + map1);
 
     }
 }

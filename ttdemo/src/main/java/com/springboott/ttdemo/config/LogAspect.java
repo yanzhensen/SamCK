@@ -17,15 +17,15 @@ public class LogAspect {
 
     @Before(value = POINT_CUT)
     public void doBeforeAdvice(){
-        logger.info("前置通知执行了!");
-        logger.info("begin "+ LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        //logger.info("前置通知执行了!");
+        //logger.info("begin "+ LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
     }
     @Pointcut(POINT_CUT)
     public void pointCut(){
     }
     @After(value = POINT_CUT)
     public void doAfterAdvice(JoinPoint joinPoint){
-        logger.info("后置通知执行了!");
+        //logger.info("后置通知执行了!");
         /*Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
@@ -33,7 +33,7 @@ public class LogAspect {
                 logger.info("run "+System.currentTimeMillis());
             }
         },1000);*/
-        logger.info("end "+ LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        //logger.info("end "+ LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
     }
 
     /**
