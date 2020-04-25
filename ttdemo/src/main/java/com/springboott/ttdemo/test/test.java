@@ -9,15 +9,22 @@ import com.springboott.ttdemo.po.User;
 import com.springboott.ttdemo.po.UserClone;
 import com.springboott.ttdemo.util.ApiAssert;
 import com.springboott.ttdemo.util.ApiUtils;
+import com.springboott.ttdemo.util.JacksonUtils;
 import com.springboott.ttdemo.util.LocalDateTimeUtils;
 import io.swagger.models.auth.In;
 import net.sf.json.JsonConfig;
 import org.apache.commons.lang3.StringUtils;
 import org.eclipse.jdt.internal.compiler.batch.FileSystem;
+import org.junit.Test;
+import org.springframework.beans.BeanUtils;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
 
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -27,6 +34,7 @@ import java.time.LocalTime;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
+import java.time.temporal.TemporalUnit;
 import java.util.*;
 
 public class test {
@@ -81,8 +89,8 @@ public class test {
 //        boolean b = s!=null?true:false;
 //        assert b :"返回数据为空";
 //        System.out.println("end");
-        String date1 = "2019-08-30";
-        String date2 = "2020-02-29";
+//        String date1 = "2019-08-30";
+//        String date2 = "2020-02-29";
 //        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 //        Calendar date = Calendar.getInstance();
 //        Date dt1 = sdf.parse(date2);
@@ -168,20 +176,7 @@ public class test {
 //        String text2 = text1.replace("[123]","123");
 //        System.out.println(text2);
 
-        /*try {
-            UserClone userA = new UserClone();
-            UserClone userC = new UserClone();
-            userC.setUsername("Lucy");
-            UserClone userD = userC;
-            userA.setUsername("petter");
-            UserClone userB = (UserClone) userA.clone();
-            System.out.println(userA==userB);
-            System.out.println(userC==userD);
-            System.out.println(userB);//Clone A 与 B 是两个独立的对象
-            System.out.println(userD);// 而普通的复制 就直接指向有的内存
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-        }*/
+
         /*String jstr = "\"{\"path\":\"http://pic-gongkai.fangzhizun.com/FuQ39_G_Zk6FKVHfi65mhyptClOb9242.jpg\",\"name\":\"0fefcd97e8417fd1a82e205b38031afa.jpg\"}" +
                 ",{\"path\":\"http://pic-gongkai.fangzhizun.com/Fkvorv7dqj7KZW-dAH4jSZ79Yu6P5536.jpg\",\"name\":\"5d5bbda02283b.jpg\"}\"";
         String jstr2 = "{\"path\":\"http://pic-gongkai.fangzhizun.com/FuQ39_G_Zk6FKVHfi65mhyptClOb9242.jpg\",\"name\":\"0fefcd97e8417fd1a82e205b38031afa.jpg\"}" +
@@ -275,7 +270,8 @@ public class test {
             JSONObject js = jsonArray.getJSONObject(i);
             System.out.println("js.getString(\"number\") = " + js.getString("number"));
         }*/
-        System.out.println(LocalDate.now());
+
+        /*System.out.println(LocalDate.now());
         System.out.println(LocalDate.now().plusDays(40));
         //1<2
         if (LocalDate.now().isBefore(LocalDate.now().plusDays(40))) {
@@ -286,7 +282,8 @@ public class test {
         }
         if (LocalDate.now().isEqual(LocalDate.now())) {
             System.out.println("now: true");
-        }
+        }*/
+
         /*String randomNumber = String.valueOf((Math.random() * 1000000));
         System.out.println("randomNumber = " + randomNumber);
         int r1 = (int) (Math.random() * 1000000);
@@ -294,6 +291,133 @@ public class test {
 
 //        Map<String, String> map1 = ApiUtils.getEntityType(AllTypeEntity.class);
 //        System.out.println("map1 = " + map1);
+       /* DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String s = "2020-02-17";
+        LocalDate date = LocalDate.parse(s);
+        System.out.println("date = " + date);
+        String sss = "2020-02-17 09:05:18";
+//        String sss = "2019-04-03 9:32:16";//报错
+        LocalDateTime dateTime = LocalDateTime.parse(sss, df);
+        System.out.println("dateTime = " + dateTime);
+        StringBuilder sb3 = new StringBuilder();
+        StringBuilder sd5 = new StringBuilder();
+        System.out.println("sb = " + sb3);
+        System.out.println("Objects.isNull(sb) = " + Objects.isNull(sb3));
+        System.out.println("StringUtils.isEmpty(sb) = " + StringUtils.isEmpty(sb3.toString()));
+        sb3.append("241");
+        sd5.append("gvhd" + sb3);
+        System.out.println("sd = " + sd5.deleteCharAt(sd5.length()-1));*/
 
+
+//        System.out.println((int)(Math.random()*9*10000000)+"");
+        Double jrrTvCost = Double.parseDouble(StringUtils.isNotEmpty("") ? "" : "0");//电视费
+        System.out.println("jrrTvCost = " + jrrTvCost);
+        System.out.println("440524".substring(0, 3));
+        System.out.println(Objects.equals("440524".substring(0, 3), "440"));
+        String end = String.valueOf(Math.round(Math.random() * 10000));
+        System.out.println("end = " + end);
+    }
+
+    @Test
+    public void uuu() {
+        //线上路径
+        String p1 = System.getProperty("user.dir") + "/shield/ShieldingWords.txt";
+        String p2 = System.getProperty("user.dir") + "/src/main/resources/ShieldingWords.txt";
+        String p3 = "./src/main/resources/ShieldingWords.txt";
+        System.out.println(p1);
+        System.out.println(p2);
+        System.out.println(p3);
+        String str = "{\"jsonVal\":[{\"agent\":\"\",\"endDate\":\"2021-01-07\",\"contractNo\":\"EleCon20200411142138792\",\"business_license_number\":\"74321654642\",\"signingDate\":\"2020-04-11\",\"rentalAddress\":\"深圳市 罗湖区 智能声控公寓 A座 1701\",\"rentType\":\"月付\",\"deliveryDay\":\"2020-10-08\",\"remark\":\"\",\"Truce1\":\"1\",\"Truce2\":\"0\",\"company_address\":\"测试公寓6栋66号\",\"Signer1\":\"396ba0e0f09d410ea00ddfcc1b314db1\",\"Signer2\":\"b6836a5a64432d97220e3675dfebdfe3\",\"capitalAmount\":\"陆仟陆佰元整\",\"email\":\"\",\"squareMeter\":100,\"serviceFee\":\"100\",\"gasNum\":0,\"renant\":\"测试测试2\",\"houseType\":\"2房2厅1卫\",\"lowercaseAmount\":\"6600\",\"electricityNum\":0,\"company_tel\":\"15012341565\",\"beginDate\":\"2020-10-08\",\"waterNum\":0,\"mailingAddress\":\"\",\"idcard\":\"45378618468410\",\"telphone\":\"13058040157\",\"company_name\":\"演示公寓旗舰版\",\"salesman\":\"管理员\",\"paymentDate\":11}],\"insertData\":{\"jrrPaymentMethod\":\"月付\",\"jcdId\":178,\"laId\":245,\"advanceMode\":\"1\",\"renterId\":393,\"jrrServerPayment\":\"月付\",\"houseDeposit\":\"6500\",\"jrrTypeOfContract\":\"2\",\"jrrMoney\":\"6600\",\"jrrSignedTime\":\"2020-04-11\",\"numberMode\":\"1\",\"jrrTheTerm\":\"0年3月0日\",\"jrrServerCost\":\"100\",\"jrrBeginTime\":\"2020-10-08\",\"jrrContractType\":\"续签合同\",\"jrrTheContract\":\"续签\",\"jrrRentalType\":\"正常\",\"jcdContractPrefix\":\"EleCon\",\"jrrEndTime\":\"2021-01-07\",\"jcdContractNumber\":\"20200411142138792\",\"userId\":\"4\",\"jrrManagePayment\":\"月付\",\"jrrManageCost\":\"100\",\"hrId\":549,\"jrrInAdvancePay\":11,\"jrrRenewalCoding\":\"A004\",\"hsId\":1540,\"jcdHouseAddress\":\"智能声控公寓 A座 1701\"}}";
+        JSONObject object = JSONObject.parseObject(str);
+        String string = object.getJSONArray("jsonVal").getJSONObject(0).getString("contractNo");
+        System.out.println("string = " + string);
+
+
+    }
+
+    @Test
+    public void ChekcNull() {
+        User user = new User();
+        System.out.println("user = " + Objects.isNull(user));
+        System.out.println(LocalDate.parse("1111-11-11"));
+        System.out.println(LocalDateTime.parse("1111-11-11 11:11:11", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        System.out.println(false && false);
+        LocalDate localDate = LocalDate.parse("2020-03-20");
+        System.out.println(localDate.getDayOfMonth());
+        System.out.println(localDate.getDayOfWeek());
+        System.out.println(localDate.getDayOfYear());
+        System.out.println(localDate.getYear());
+        System.out.println(localDate.getMonthValue());
+        System.out.println(localDate.getDayOfMonth());
+
+        System.out.println(LocalDate.now().compareTo(LocalDate.now().plusDays(10)));
+        System.out.println(LocalDate.now().plusDays(10).compareTo(LocalDate.now()));
+
+        user.setAge(20);
+        User b = new User();
+        BeanUtils.copyProperties(user, b);
+        System.out.println(" = " + user.equals(b));
+        b.setUsername("222");
+        b.setAge(30);
+        System.out.println("a = " + user);
+        System.out.println("b = " + b);
+        System.out.println(" = " + user.equals(b));
+
+        LocalDateTime dateTime = LocalDateTime.parse("2020-04-22 15:56:58",DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        System.out.println("dateTime = " + dateTime);
+    }
+
+    @Test
+    public void MultiValueMapTest() {
+        MultiValueMap<String, String> stringMultiValueMap = new LinkedMultiValueMap<>();
+        stringMultiValueMap.add("早班 9:00-11:00", "周一");
+        stringMultiValueMap.add("早班 9:00-11:00", "周二");
+        stringMultiValueMap.add("中班 13:00-16:00", "周三");
+        stringMultiValueMap.add("早班 9:00-11:00", "周四");
+        stringMultiValueMap.add("测试1天2次 09:00 - 12:00", "周五");
+        stringMultiValueMap.add("测试1天2次 09:00 - 12:00", "周六");
+        stringMultiValueMap.add("中班 13:00-16:00", "周日");
+        stringMultiValueMap.set("早班 9:00-11:00", "123");
+        //打印所有值
+        Set<String> keySet = stringMultiValueMap.keySet();
+        for (String key : keySet) {
+            List<String> values = stringMultiValueMap.get(key);
+            System.out.println(StringUtils.join(values.toArray(), " ") + ":" + key);
+
+        }
+    }
+
+    @Test
+    public void ba() {
+        StringBuilder messageNote = new StringBuilder();
+        as(messageNote);
+        System.out.println("messageNote = " + messageNote);
+        System.out.println(Double.parseDouble("0.00"));
+        //System.out.println(Double.parseDouble(null));报错 NullPointerException
+        System.out.println(Math.abs(200) > (1e-6));
+        System.out.println(0.1 <= (1e-6));//0.000001
+        System.out.println(-0.000001 >= (-1e-6));//-0.000001
+    }
+
+    public void as(StringBuilder messageNote) {
+        messageNote.append("1351235");
+    }
+
+    @Test
+    public void cloneTe(){
+        try {
+            UserClone userA = new UserClone();
+            UserClone userC = new UserClone();
+            userC.setUsername("Lucy");
+            UserClone userD = userC;
+            userA.setUsername("petter");
+            UserClone userB = (UserClone) userA.clone();
+            System.out.println(userA==userB);
+            System.out.println(userC==userD);
+            System.out.println(userB);//Clone A 与 B 是两个独立的对象
+            System.out.println(userD);// 而普通的复制 就直接指向有的内存
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
     }
 }

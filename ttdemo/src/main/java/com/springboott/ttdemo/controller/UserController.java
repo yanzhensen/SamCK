@@ -6,8 +6,10 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.springboott.ttdemo.enums.ErrorCodeEnum;
 import com.springboott.ttdemo.po.User;
 import com.springboott.ttdemo.service.UserService;
+import com.springboott.ttdemo.util.ApiAssert;
 import com.springboott.ttdemo.util.Result;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +45,7 @@ public class UserController {
             @ApiImplicitParam(name = "limit", value = "每页条数", paramType = "query"),
             @ApiImplicitParam(name = "offset", value = "当前条数", paramType = "query")
     })
-    @GetMapping(value = "/")
+    @GetMapping
     public JSONObject userList(ModelAndView mv, @RequestParam(name = "search", defaultValue = "") String search,
                                @RequestParam(name = "limit", defaultValue = "10") Integer limit,
                                @RequestParam(name = "offset", defaultValue = "0") Integer offset,
@@ -64,9 +66,11 @@ public class UserController {
     }
 
     @ApiOperation(value = "新增用户", notes = "新增用户")
-    @PostMapping(value = "/")
-    public Result<String> insertUser(User user) {
+    @PostMapping
+    public Result<String> insertUser(@RequestBody User user) {
+        System.out.println("user = " + user);
         Boolean result = userService.save(user);
+        ApiAssert.isTrue(ErrorCodeEnum.BAD_ADD_FAILURE, result);
         if (result) {
             return new Result<>(1, "成功", null);
         } else {
@@ -77,7 +81,7 @@ public class UserController {
     @ApiOperation(value = "修改用户信息", notes = "根据用户id修改用户信息")
     @ApiImplicitParam(paramType = "path", name = "id", value = "用户id", required = true, dataType = "Integer")
     @ApiResponse(code = 400, message = "参数没有填好", response = String.class)
-    @PutMapping(value = "/")
+    @PutMapping
     public Result<String> updateUser(@ModelAttribute User user) {
         System.out.println("==========" + user);
         Boolean result = userService.updateById(user);

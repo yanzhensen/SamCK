@@ -33,7 +33,7 @@ public class httpText {
     private String postResult = null;
 
     @Test
-    public void t2() throws URISyntaxException {
+    public void t2(){
         String loginURL = "https://www.sojson.com/open/api/lunar/json.shtml";
         final String userAgent = "Mozilla/5.0(Windows NT 10.0; Win64; x64) AppleWebKit/53a7.36 (KHTML, like Gecko) Chrome/69.0.3497.92 Safari/537.36";
         // 创建一个httpget请求

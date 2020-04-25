@@ -13,7 +13,7 @@ import java.util.Objects;
 /**
  * LocalDateTimeUtils is used to Java8中的时间类
  *
- * @author wangchong
+ * @author Sam
  * @since 2019-10-15
  */
 public class LocalDateTimeUtils {
@@ -120,4 +120,17 @@ public class LocalDateTimeUtils {
     public static LocalDate fomartLocalDate(String localDate) {
         return LocalDate.parse(localDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
+
+    /**
+     * 计算天数 2019-11-17#2020-02-16 相差91天 未包括当天
+     * 包括当天得 +1天 92 localdate类型
+     *
+     * @param beginTime
+     * @param EndTime
+     * @return
+     */
+    public static int betweenDays(String beginTime, String EndTime) {
+        return (int) (LocalDate.parse(EndTime).toEpochDay() - LocalDate.parse(beginTime).toEpochDay());
+    }
+
 }

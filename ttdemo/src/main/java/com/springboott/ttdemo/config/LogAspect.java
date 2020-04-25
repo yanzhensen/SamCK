@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter;
 @Component
 @Aspect
 public class LogAspect {
-    private static final Logger logger = LoggerFactory.getLogger(LogAspect.class);
+    private final Logger logger = LoggerFactory.getLogger(LogAspect.class);
     private final String POINT_CUT = "execution(public * com.springboott.ttdemo.controller.UserController.*(..))";
 
     @Before(value = POINT_CUT)

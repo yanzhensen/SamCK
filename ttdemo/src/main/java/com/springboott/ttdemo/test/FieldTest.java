@@ -45,11 +45,11 @@ public class FieldTest {
         try {
             Field[] newUser = user.getClass().getDeclaredFields();
             for (Field field : newUser) {
-                field.setAccessible(true);
-                String old = Objects.nonNull(field.get(bean)) ? field.get(bean).toString() : "";//去null判断 防止报错
+                field.setAccessible(true);//是否访问私有变量 默认false
+                String oldEntity = Objects.nonNull(field.get(bean)) ? field.get(bean).toString() : "";//去null判断 防止报错
                 String newEntity = Objects.nonNull(field.get(user)) ? field.get(user).toString() : "";
-                if (map.containsKey(field.getName()) && !old.equals(newEntity) && !"".equals(newEntity)) {
-                    followUp.append(map.get(field.getName()) + "：" + old + " → " + newEntity + "; ");
+                if (map.containsKey(field.getName()) && !oldEntity.equals(newEntity) && !"".equals(newEntity)) {
+                    followUp.append(map.get(field.getName()) + "：" + oldEntity + " → " + newEntity + "; ");
                 }
             }
             System.out.println("followUp = " + followUp);

@@ -1,6 +1,7 @@
 package com.springboott.ttdemo.po;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
@@ -47,8 +48,12 @@ public class User implements Serializable {
     @ApiModelProperty(notes = "地址", example = "xx省xx市xx区xxxx")
     private String address;
 
-    @ApiModelProperty(notes = "备注", example = "备注")
+    @ApiModelProperty(notes = "备注")
     private String remark;
+
+    @ApiModelProperty(notes = "测试附加用户")
+    @TableField(exist = false)
+    private User otherUser;
 
     public User() {
     }

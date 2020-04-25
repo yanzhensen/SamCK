@@ -36,6 +36,12 @@ public class ApiAssert {
         }
     }
 
+    public static void notEquals(ErrorCodeEnum errorCodeEnum, Object obj1, Object obj2) {
+        if (Objects.equals(obj1, obj2)) {
+            failure(errorCodeEnum);
+        }
+    }
+
     public static void isTrue(ErrorCodeEnum errorCodeEnum, boolean condition) {
         if (!condition) {
             failure(errorCodeEnum);
@@ -180,6 +186,12 @@ public class ApiAssert {
      */
     public static void equals(ErrorCode errorCode, Object obj1, Object obj2) {
         if (!Objects.equals(obj1, obj2)) {
+            failure(errorCode);
+        }
+    }
+
+    public static void notEquals(ErrorCode errorCode, Object obj1, Object obj2) {
+        if (Objects.equals(obj1, obj2)) {
             failure(errorCode);
         }
     }

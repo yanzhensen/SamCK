@@ -3,6 +3,7 @@ package com.springboott.ttdemo.po;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -10,29 +11,32 @@ import java.util.Date;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class AllTypeEntity {
-    private byte byteValue;
-    private boolean booleanValue;
-    private short shortValue;
-    private char charValue;
-    private int intValue;
-    private long longValue;
-    private float floatValue;
-    private double doubleValue;
+public class AllTypeEntity implements Serializable {
 
-    private Byte bByteValue;
-    private Boolean bBooleanValues;
-    private Short bShortValue;
-    private Character characterValue;
-    private Integer bIntegerValue;
-    private Long bLongValue;
-    private Float bFloatValue;
-    private Double bDoubleValue;
+    private static final long serialVersionUID = 1L;
 
-    private String bstringValue;
+    private byte byteSmValue;
+    private boolean booleanSmValue;
+    private short shortSmValue;
+    private char charSmValue;
+    private int intSmValue;
+    private long longSmValue;
+    private float floatSmValue;
+    private double doubleSmValue;
 
-    private Date dateValue;
-    private Timestamp timestampValue;
-    private LocalDate localDateValue;
-    private LocalDateTime localDateTimeValue;
+    private Byte byteBigValue;
+    private Boolean booleanBigValue;
+    private Short shortBigValue;
+    private Character characterBigValue;
+    private Integer integerBigValue;
+    private Long longBigValue;
+    private Float floatBigValue;
+    private Double doubleBigValue;
+
+    private String stringOfValue;
+
+    private Date dateOfValue;
+    private Timestamp timestampOfValue;
+    private LocalDate localDateOfValue;
+    private LocalDateTime localDateTimeOfValue;
 }

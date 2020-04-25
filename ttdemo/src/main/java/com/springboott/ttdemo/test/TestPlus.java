@@ -124,6 +124,45 @@ public class TestPlus {
     //不留全删
     @Test
     public void publicTest() {
+
+    }
+
+    @Test
+    public void keyTest() {
+        //批量主键返回
+        List<User> list = new ArrayList<>();
+        User u1 = new User();
+        u1.setUsername("aa1");
+        u1.setAge(50);
+        u1.setAddress("广东深圳");
+        User u2 = new User();
+        u2.setUsername("aa2");
+        u2.setAge(50);
+        u2.setAddress("广东深圳");
+        list.add(u1);
+        list.add(u2);
+        userService.saveBatch(list);
+        list.forEach(System.out::println);
+        List<Integer> ids = list.stream().map(e -> e.getId()).collect(Collectors.toList());
+        System.out.println("ids = " + ids);
+    }
+
+    @Test
+    public void steamTest() {
+        //倒序
+        List<User> list = userMapper.selectList(new LambdaQueryWrapper<User>().in(User::getId, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10).orderByDesc(User::getId));
+        list.forEach(System.out::println);
+        System.out.println("----------------------------------");
+        //变为正序 parallelStream多线程版stream 不要随便使用
+        Map<Integer, User> userMap = list.parallelStream().collect(Collectors.groupingBy(User::getId,
+                Collectors.collectingAndThen(Collectors.reducing((c1, c2) -> c1.getId() > c2.getId() ? c1 : c2), Optional::get)));
+        for (Integer integer : userMap.keySet()) {
+            System.out.println(userMap.get(integer));
+        }
+        System.out.println("----------------------------------");
+        //倒序
+        list = list.stream().sorted(Comparator.comparing(User::getAge).reversed()).collect(Collectors.toList());
+        list.forEach(System.out::println);
     }
 
     @Test
@@ -261,7 +300,8 @@ public class TestPlus {
         QueryWrapper<User> queryWrapper = new QueryWrapper();
         queryWrapper.ge("age", 26);
         Page<User> page = new Page<User>(1, 5, true);//当前页1,每页5条, true要查询总记录数 默认true
-        IPage<User> iPage = userMapper.selectPage(page, queryWrapper);
+//        IPage<User> iPage = userMapper.selectPage(page, queryWrapper);
+        IPage<User> iPage = userService.page(page, queryWrapper);
         System.out.println("总页面：" + iPage.getPages());
         System.out.println("总记录数：" + iPage.getTotal());
         List<User> userList = iPage.getRecords();

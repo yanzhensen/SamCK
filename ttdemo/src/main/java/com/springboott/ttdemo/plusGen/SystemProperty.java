@@ -30,5 +30,7 @@ public class SystemProperty {
         System.out.println("操作系统用户名：" + System.getProperty("user.name")); // 用户名
         System.out.println("操作系统用户的主目录：" + System.getProperty("user.home")); // 用户的主目录
         System.out.println("当前程序所在目录：" + System.getProperty("user.dir")); // 当前程序所在目录
+
+        //相对路径  "./src/main/resources/ShieldingWords.txt"
     }
 }

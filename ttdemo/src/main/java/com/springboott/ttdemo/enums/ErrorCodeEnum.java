@@ -73,7 +73,10 @@ public enum ErrorCodeEnum {
      * 未查询到任何数据
      */
     BAD_DEVICE_INFOMACTION(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, true, "未查询到任何数据"),
-
+    /**
+     *
+     */
+    BAD_ADD_FAILURE(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, true, "新增失败"),
     ;
 
     private final int httpCode;

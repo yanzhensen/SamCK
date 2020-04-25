@@ -34,14 +34,14 @@ public class MockMvcTest {
         RequestBuilder request = null;
 
         // 1、get查一下user列表，应该为空
-        request = get("/user/");
+        request = get("/user");
         mvc.perform(request)
                 .andExpect(status().isOk())
                 .andExpect(content().string(equalTo("[]")))
                 .andDo(MockMvcResultHandlers.print());;
 
 //        // 2、post提交一个user
-//        request = post("/user/")
+//        request = post("/user")
 //                .param("id", "1")
 //                .param("username", "测试大师")
 //                .param("password", "123123")
@@ -50,7 +50,7 @@ public class MockMvcTest {
 //                .andExpect(content().string(equalTo("success")));
 //
 //        // 3、get获取user列表，应该有刚才插入的数据
-//        request = get("/user/");
+//        request = get("/user");
 //        mvc.perform(request)
 //                .andExpect(status().isOk())
 //                .andExpect(content().string(equalTo("[{\"id\":1,\"username\":\"测试大师\",\"age\":20}]")));
@@ -73,7 +73,7 @@ public class MockMvcTest {
 //                .andExpect(content().string(equalTo("success")));
 //
 //        // 7、get查一下user列表，应该为空
-//        request = get("/user/");
+//        request = get("/user");
 //        mvc.perform(request)
 //                .andExpect(status().isOk())
 //                .andExpect(content().string(equalTo("[]")));

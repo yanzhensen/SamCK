@@ -212,13 +212,13 @@ public abstract class ApiUtils {
     public void test() {
         List<Map<String, Object>> maplist = new ArrayList<>();
         Map<String, Object> map2 = new HashMap<>();
-        map2.put("bIntegerValue", "2");
-        map2.put("bDoubleValue", "2.0");
+        map2.put("integerBigValue", "2");
+        map2.put("doubleBigValue", "2.0");
         maplist.add(map2);
         List<AllTypeEntity> dtoRes = ApiUtils.listMapToListBean(maplist, AllTypeEntity.class);
         System.out.println("dtoRes = " + dtoRes);
-        System.out.println("BIntegerValue = " + dtoRes.get(0).getBIntegerValue());
-        System.out.println("BIntegerValue = " + dtoRes.get(0).getBDoubleValue());
+        System.out.println("BIntegerValue = " + dtoRes.get(0).getIntegerBigValue());
+        System.out.println("doubleBigValue = " + dtoRes.get(0).getDoubleBigValue());
     }
 
 }

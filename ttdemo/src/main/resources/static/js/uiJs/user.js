@@ -21,7 +21,7 @@ var $table;
 //初始化bootstrap-table的内容
 function InitMainTable () {
     //记录页面bootstrap-table全局变量$table，方便应用
-    var queryUrl = "../user/"
+    var queryUrl = "../user"
     $table = $('#usertable').bootstrapTable({
         url: queryUrl,                      //请求后台的URL（*）
         method: 'GET',                      //请求方式（*）
@@ -289,7 +289,7 @@ function updateUser() {
     var telephone = $("#addTelephone").val();
     var remark = $("#addRemark").summernote('code');
     $.ajax({
-        url:"../user/",
+        url:"../user",
         type:"put",
         data:{
             id : id ,
@@ -330,7 +330,7 @@ function insertUser() {
     var telephone = $("#addTelephone").val();
     var remark = $("#addRemark").summernote('code');
     $.ajax({
-        url:"../user/",
+        url:"../user",
         type:"post",
         data:{
             username : username,
