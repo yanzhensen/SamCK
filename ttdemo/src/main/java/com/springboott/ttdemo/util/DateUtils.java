@@ -540,4 +540,8 @@ public class DateUtils {
         System.out.println("arr[1]:" + arr[1]);
         return arr;
     }
+
+    public static final String parseDateToStr(final String format, final Date date) {
+        return new SimpleDateFormat(format).format(date);
+    }
 }

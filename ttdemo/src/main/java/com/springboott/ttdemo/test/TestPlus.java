@@ -1,6 +1,5 @@
 package com.springboott.ttdemo.test;
 
-import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -11,19 +10,15 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.springboott.ttdemo.TtdemoApplication;
 import com.springboott.ttdemo.dao.UserMapper;
-import com.springboott.ttdemo.enums.ErrorCodeEnum;
 import com.springboott.ttdemo.po.User;
 import com.springboott.ttdemo.service.UserService;
-import com.springboott.ttdemo.util.ApiAssert;
-import com.springboott.ttdemo.util.ApiUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.util.LinkedMultiValueMap;
 
-import java.lang.reflect.Field;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -38,6 +33,8 @@ public class TestPlus {
     UserMapper userMapper;
     @Autowired
     UserService userService;
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @Test
     public void t1() {

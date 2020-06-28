@@ -30,6 +30,22 @@ public class LocalDateTest {
         Period period = today.until(lastDayOfYear);
         System.out.println("Period Format= " + period);
         System.out.println("Months remaining in the year= " + period.getMonths());
+
+
+        LocalDate localDate = LocalDate.parse("2020-03-20");
+        System.out.println("这周星期几：" + localDate.getDayOfWeek());
+        System.out.println("这年第多少天：" + localDate.getDayOfYear());
+        System.out.println("获取年：" + localDate.getYear());
+        System.out.println("获取月：" + localDate.getMonthValue());
+        System.out.println("获取日：" + localDate.getDayOfMonth());
+
+        System.out.println(LocalDate.now().compareTo(LocalDate.now().plusDays(10)));
+        System.out.println(LocalDate.now().plusDays(10).compareTo(LocalDate.now()));
+
+        Period next = Period.between(localDate, today);
+        System.out.println("两日期相隔多少年 = " + next.getYears());
+        System.out.println("两日期相隔多少月 = " + next.getMonths());
+        System.out.println("两日期相隔多少天 = " + next.getDays());
     }
 
     @Test
@@ -47,16 +63,16 @@ public class LocalDateTest {
         String rentFreeDailys = "46#0,46#0,46#0";
 //        String rentFreeDailys = "10#10,10#10,10#10";
 //        String rentFreeDailys = "10#10,10#10,10#10,10#10";
-//        LocalDate jrlBeginTime = LocalDate.parse("2020-02-02");
-//        LocalDate jrlEndTime = LocalDate.parse("2023-02-01");
+        LocalDate jrlBeginTime = LocalDate.parse("2020-02-02");
+        LocalDate jrlEndTime = LocalDate.parse("2023-02-01");
 //        LocalDate jrlBeginTime = LocalDate.parse("2020-02-02");
 //        LocalDate jrlEndTime = LocalDate.parse("2021-02-01");
 //        LocalDate jrlBeginTime = LocalDate.parse("2020-02-02");
 //        LocalDate jrlEndTime = LocalDate.parse("2021-04-01");
 //        LocalDate jrlBeginTime = LocalDate.parse("2020-03-02");
 //        LocalDate jrlEndTime = LocalDate.parse("2020-09-01");
-        LocalDate jrlBeginTime = LocalDate.parse("2019-04-13");
-        LocalDate jrlEndTime = LocalDate.parse("2024-04-12");
+//        LocalDate jrlBeginTime = LocalDate.parse("2019-04-13");
+//        LocalDate jrlEndTime = LocalDate.parse("2024-04-12");
         int y1 = jrlBeginTime.until(jrlEndTime.plusDays(1)).getYears();
         int m1 = jrlBeginTime.until(jrlEndTime.plusDays(1)).getMonths();
         int d1 = jrlBeginTime.until(jrlEndTime.plusDays(1)).getDays();

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springboott.ttdemo.dao.DatasourceMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.springboott.ttdemo.po.Datasource">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="company_name" property="companyName" />
+        <result column="company_contact" property="companyContact" />
+        <result column="company_tel" property="companyTel" />
+        <result column="company_address" property="companyAddress" />
+        <result column="db_name" property="dbName" />
+        <result column="driver" property="driver" />
+        <result column="url" property="url" />
+        <result column="username" property="username" />
+        <result column="password" property="password" />
+        <result column="update_time" property="updateTime" />
+        <result column="create_time" property="createTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, name, company_name, company_contact, company_tel, company_address, db_name, driver, url, username, password, update_time, create_time
+    </sql>
+
+</mapper>

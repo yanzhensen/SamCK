@@ -1,6 +1,6 @@
 package com.springboott.ttdemo.util;
 
-import com.springboott.ttdemo.exception.CustomException;
+import com.springboott.ttdemo.config.exception.CustomException;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 

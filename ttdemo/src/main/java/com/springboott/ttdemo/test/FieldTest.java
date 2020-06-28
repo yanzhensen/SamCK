@@ -2,10 +2,10 @@ package com.springboott.ttdemo.test;
 
 import com.springboott.ttdemo.TtdemoApplication;
 import com.springboott.ttdemo.dao.UserMapper;
-import com.springboott.ttdemo.enums.ErrorCodeEnum;
+import com.springboott.ttdemo.config.enums.ErrorCodeEnum;
 import com.springboott.ttdemo.po.User;
 import com.springboott.ttdemo.service.UserService;
-import com.springboott.ttdemo.util.ApiAssert;
+import com.springboott.ttdemo.config.exception.ApiAssert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

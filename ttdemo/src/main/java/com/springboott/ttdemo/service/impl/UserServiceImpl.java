@@ -1,5 +1,6 @@
 package com.springboott.ttdemo.service.impl;
 
+import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.springboott.ttdemo.dao.UserMapper;
 import com.springboott.ttdemo.po.User;
@@ -17,6 +18,7 @@ import javax.annotation.Resource;
  * @since 2019-09-04
  */
 @Service
+@DS("test")
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
     @Resource

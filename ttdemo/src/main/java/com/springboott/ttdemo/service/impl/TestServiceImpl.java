@@ -1,5 +1,7 @@
 package com.springboott.ttdemo.service.impl;
 
+import com.baomidou.dynamic.datasource.annotation.DS;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.springboott.ttdemo.dao.UserMapper;
 import com.springboott.ttdemo.po.User;
@@ -13,8 +15,12 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
+import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -25,6 +31,7 @@ import javax.annotation.Resource;
  * @since 2019-10-09
  */
 @Service
+@DS("test")
 public class TestServiceImpl extends ServiceImpl<UserMapper, User> implements TestService {
 
     @Autowired
@@ -35,6 +42,8 @@ public class TestServiceImpl extends ServiceImpl<UserMapper, User> implements Te
     private UserMapper userMapper;
     @Autowired
     private DataSourceTransactionManager transactionManager;
+    @Autowired
+    private RestTemplate restTemplate;
 
     //默认事务
     @Override
@@ -57,6 +66,25 @@ public class TestServiceImpl extends ServiceImpl<UserMapper, User> implements Te
             transactionManager.rollback(status);
             System.out.println("回滚了");
         }
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void transRest() {
+        List<User> list = userService.list(new LambdaQueryWrapper<User>().in(User::getId, 1, 2, 3, 4, 5, 6, 7));
+        System.out.println("list = " + list);
+        update4();
+        Map<String, String> map = new HashMap<>();
+        map.put("limit", "5");
+        map.put("offset", "6");
+        String object = restTemplate.getForObject("http://127.0.0.1:8089/ttdemo/user?limit={limit}&offset={offset}", String.class, map);
+        System.out.println("object = " + object);
+
+        User user = new User();
+        user.setUsername("大124");
+        user.setAge(50);
+        String postForObject = restTemplate.postForObject("http://127.0.0.1:8089/ttdemo/user", user, String.class);
+        System.out.println("postForObject = " + postForObject);
     }
 
     //默认事务

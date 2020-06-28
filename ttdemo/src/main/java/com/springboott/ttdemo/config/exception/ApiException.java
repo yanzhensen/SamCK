@@ -1,7 +1,7 @@
-package com.springboott.ttdemo.exception;
+package com.springboott.ttdemo.config.exception;
 
 
-import com.springboott.ttdemo.enums.ErrorCodeEnum;
+import com.springboott.ttdemo.config.enums.ErrorCodeEnum;
 
 /**
  * <p>

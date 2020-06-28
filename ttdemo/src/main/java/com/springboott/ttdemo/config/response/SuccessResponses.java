@@ -18,22 +18,31 @@
  * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.springboott.ttdemo.config.enums;
+package com.springboott.ttdemo.config.response;
+
+import lombok.*;
 
 /**
- * <p>
- * 通用枚举
- * </p>
+ * 成功返回
  *
  * @author Caratacus
  */
-public interface IEnum {
+@Getter
+@ToString
+@Builder
+@EqualsAndHashCode(callSuper = false)
+@AllArgsConstructor
+@NoArgsConstructor
+public class SuccessResponses<T> extends ApiResponses<T> {
 
+    private static final long serialVersionUID = 1L;
     /**
-     * 获取枚举值
-     *
-     * @return
+     * http 状态码
      */
-    int getValue();
+    private Integer status;
+    /**
+     * 结果集返回
+     */
+    private T result;
 
 }

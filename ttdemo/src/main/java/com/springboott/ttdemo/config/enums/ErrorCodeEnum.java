@@ -1,7 +1,7 @@
-package com.springboott.ttdemo.enums;
+package com.springboott.ttdemo.config.enums;
 
-import com.springboott.ttdemo.exception.ErrorCode;
-import com.springboott.ttdemo.exception.UnknownEnumException;
+import com.springboott.ttdemo.config.exception.ErrorCode;
+import com.springboott.ttdemo.config.exception.UnknownEnumException;
 
 import javax.servlet.http.HttpServletResponse;
 

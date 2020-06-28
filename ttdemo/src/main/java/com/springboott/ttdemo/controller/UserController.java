@@ -6,11 +6,13 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.springboott.ttdemo.enums.ErrorCodeEnum;
+import com.springboott.ttdemo.config.controller.SuperController;
+import com.springboott.ttdemo.config.enums.ErrorCodeEnum;
+import com.springboott.ttdemo.config.response.ApiResponses;
 import com.springboott.ttdemo.po.User;
 import com.springboott.ttdemo.service.UserService;
-import com.springboott.ttdemo.util.ApiAssert;
-import com.springboott.ttdemo.util.Result;
+import com.springboott.ttdemo.config.exception.ApiAssert;
+import com.springboott.ttdemo.config.response.Result;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -32,7 +34,7 @@ import java.util.concurrent.TimeUnit;
 @Api(tags = "用户管理类")
 @RestController
 @RequestMapping("/user")
-public class UserController {
+public class UserController extends SuperController {
     @Autowired
     private UserService userService;
 
@@ -46,12 +48,11 @@ public class UserController {
             @ApiImplicitParam(name = "offset", value = "当前条数", paramType = "query")
     })
     @GetMapping
-    public JSONObject userList(ModelAndView mv, @RequestParam(name = "search", defaultValue = "") String search,
-                               @RequestParam(name = "limit", defaultValue = "10") Integer limit,
-                               @RequestParam(name = "offset", defaultValue = "0") Integer offset,
-                               @RequestParam(name = "sort", defaultValue = "id") String sort,
-                               @RequestParam(name = "sortOrder", defaultValue = "false") Boolean sortOrder
-    ) {
+    public ApiResponses<JSONObject> userList(@RequestParam(name = "search", defaultValue = "") String search,
+                                            @RequestParam(name = "limit", defaultValue = "10") Integer limit,
+                                            @RequestParam(name = "offset", defaultValue = "0") Integer offset,
+                                            @RequestParam(name = "sort", defaultValue = "id") String sort,
+                                            @RequestParam(name = "sortOrder", defaultValue = "false") Boolean sortOrder) {
         PageHelper.offsetPage(offset, limit);
         //新增模糊搜索
         QueryWrapper<User> queryWrapper = new QueryWrapper<User>();
@@ -62,20 +63,16 @@ public class UserController {
         JSONObject js = new JSONObject();
         js.put("rows", userList.getList());
         js.put("total", userList.getTotal());
-        return js;
+        return success(js);
     }
 
     @ApiOperation(value = "新增用户", notes = "新增用户")
     @PostMapping
-    public Result<String> insertUser(@RequestBody User user) {
+    public ApiResponses<Void> insertUser(@RequestBody User user) {
         System.out.println("user = " + user);
-        Boolean result = userService.save(user);
-        ApiAssert.isTrue(ErrorCodeEnum.BAD_ADD_FAILURE, result);
-        if (result) {
-            return new Result<>(1, "成功", null);
-        } else {
-            return new Result<>(-1, "失败", null);
-        }
+//        Boolean result = userService.save(user);
+        ApiAssert.isTrue(ErrorCodeEnum.BAD_ADD_FAILURE, false);
+        return success();
     }
 
     @ApiOperation(value = "修改用户信息", notes = "根据用户id修改用户信息")
@@ -128,7 +125,7 @@ public class UserController {
         if (u != null) {
             session.setAttribute("userInfo", u);
             //设置redis 并且设置过期时间
-            redisTemplate.opsForValue().set("userInfo", u.getId().toString(), 20, TimeUnit.SECONDS);
+            redisTemplate.opsForValue().set("userInfo", u.getId().toString(), 60, TimeUnit.SECONDS);
             mv.setViewName("redirect:/go/main");
             return mv;
         }

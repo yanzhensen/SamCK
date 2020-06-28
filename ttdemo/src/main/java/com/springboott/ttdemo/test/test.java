@@ -1,41 +1,23 @@
 package com.springboott.ttdemo.test;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.springboott.ttdemo.enums.ErrorCodeEnum;
-import com.springboott.ttdemo.po.AllTypeEntity;
 import com.springboott.ttdemo.po.User;
 import com.springboott.ttdemo.po.UserClone;
-import com.springboott.ttdemo.util.ApiAssert;
-import com.springboott.ttdemo.util.ApiUtils;
-import com.springboott.ttdemo.util.JacksonUtils;
-import com.springboott.ttdemo.util.LocalDateTimeUtils;
-import io.swagger.models.auth.In;
-import net.sf.json.JsonConfig;
 import org.apache.commons.lang3.StringUtils;
-import org.eclipse.jdt.internal.compiler.batch.FileSystem;
 import org.junit.Test;
 import org.springframework.beans.BeanUtils;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.RestTemplate;
 
-import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.Field;
-import java.math.BigDecimal;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.Period;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
-import java.time.temporal.TemporalUnit;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class test {
     public static void main(String[] args) throws ParseException {
@@ -310,12 +292,6 @@ public class test {
 
 
 //        System.out.println((int)(Math.random()*9*10000000)+"");
-        Double jrrTvCost = Double.parseDouble(StringUtils.isNotEmpty("") ? "" : "0");//电视费
-        System.out.println("jrrTvCost = " + jrrTvCost);
-        System.out.println("440524".substring(0, 3));
-        System.out.println(Objects.equals("440524".substring(0, 3), "440"));
-        String end = String.valueOf(Math.round(Math.random() * 10000));
-        System.out.println("end = " + end);
     }
 
     @Test
@@ -336,22 +312,60 @@ public class test {
     }
 
     @Test
+    public void publicTest() throws Exception {
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime time = LocalDateTime.parse(now.toString());
+        System.out.println("time = " + time);
+
+    }
+
+    @Test
+    public void getLocalAllDay() {
+        //获取这个月所有的日期
+        String month = "2020-05";
+        LocalDate start = LocalDate.of(Integer.parseInt(month.split("-")[0]), Integer.parseInt(month.split("-")[1]), 1);
+//        LocalDate start = LocalDate.parse(month, DateTimeFormatter.ofPattern("yyyy-MM"));
+        LocalDate end = start.with(TemporalAdjusters.lastDayOfMonth());
+        System.out.println("end = " + end);
+        //iterate从start开始迭代 每次++1天 limit限制条数 31条  map里面做了localDate转换string Collectors.toList()转List集合
+        List<String> dates = Stream.iterate(start, date -> date.plusDays(1))
+                .limit(ChronoUnit.DAYS.between(start, end.plusDays(1))).map(e -> e.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))
+                .collect(Collectors.toList());
+        System.out.println("dates = " + dates);
+        System.out.println("start.lengthOfMonth() = " + start.lengthOfMonth());
+    }
+
+    @Test
+    public void Weedken() {
+        //获取该年的周六日
+        int year = 2020;
+        List<String> dateList = new ArrayList<String>();
+        SimpleDateFormat simdf = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar calendar = new GregorianCalendar(year, 0, 1);
+        int i = 1;
+        while (calendar.get(Calendar.YEAR) < year + 1) {
+            calendar.set(Calendar.WEEK_OF_YEAR, i++);
+            calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+            if (calendar.get(Calendar.YEAR) == year) {
+                System.out.println("周日：" + simdf.format(calendar.getTime()));
+                dateList.add(simdf.format(calendar.getTime()));
+            }
+            calendar.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
+            if (calendar.get(Calendar.YEAR) == year) {
+                System.out.println("周六：" + simdf.format(calendar.getTime()));
+                dateList.add(simdf.format(calendar.getTime()));
+            }
+        }
+    }
+
+
+    @Test
     public void ChekcNull() {
         User user = new User();
         System.out.println("user = " + Objects.isNull(user));
         System.out.println(LocalDate.parse("1111-11-11"));
         System.out.println(LocalDateTime.parse("1111-11-11 11:11:11", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
         System.out.println(false && false);
-        LocalDate localDate = LocalDate.parse("2020-03-20");
-        System.out.println(localDate.getDayOfMonth());
-        System.out.println(localDate.getDayOfWeek());
-        System.out.println(localDate.getDayOfYear());
-        System.out.println(localDate.getYear());
-        System.out.println(localDate.getMonthValue());
-        System.out.println(localDate.getDayOfMonth());
-
-        System.out.println(LocalDate.now().compareTo(LocalDate.now().plusDays(10)));
-        System.out.println(LocalDate.now().plusDays(10).compareTo(LocalDate.now()));
 
         user.setAge(20);
         User b = new User();
@@ -363,7 +377,7 @@ public class test {
         System.out.println("b = " + b);
         System.out.println(" = " + user.equals(b));
 
-        LocalDateTime dateTime = LocalDateTime.parse("2020-04-22 15:56:58",DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        LocalDateTime dateTime = LocalDateTime.parse("2020-04-22 15:56:58", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         System.out.println("dateTime = " + dateTime);
     }
 
@@ -403,8 +417,58 @@ public class test {
         messageNote.append("1351235");
     }
 
+    //list地址引用
     @Test
-    public void cloneTe(){
+    public void ListTe() {
+        User u1 = new User();
+        u1.setUsername("aa1");
+        u1.setAge(50);
+        u1.setAddress("广东深圳");
+        User u2 = new User();
+        u2 = u1;
+        u2.setUsername("aa2");
+        u2.setAge(20);
+        System.out.println("u1 = " + u1);
+        System.out.println("u2 = " + u2);
+    }
+
+    //对象地址引用
+    @Test
+    public void objectTe() {
+        User u1 = new User();
+        u1.setUsername("aa1");
+        u1.setAge(50);
+        u1.setAddress("广东深圳");
+        User u2 = u1;
+        u2.setUsername("aa2");
+        u2.setAge(20);
+        System.out.println("u1 = " + u1);
+        System.out.println("u2 = " + u2);
+        //u1 = User(id=null, username=aa2, password=null, age=20, telephone=null, address=广东深圳, remark=null, otherUser=null)
+        //u2 = User(id=null, username=aa2, password=null, age=20, telephone=null, address=广东深圳, remark=null, otherUser=null)
+
+        //解决办法
+        User u3 = new User();
+        u3.setUsername("aa1");
+        u3.setAge(50);
+        u3.setAddress("广东深圳");
+        User u4 = new User();
+        BeanUtils.copyProperties(u3, u4);
+        u4.setUsername("aa2");
+        u4.setAge(20);
+        System.out.println("u3 = " + u3);
+        System.out.println("u4 = " + u4);
+        int n = 10;
+        for (int i = 0; i < n; i++) {
+            if (i == 9) {
+                n++;
+            }
+        }
+        System.out.println("n = " + n);
+    }
+
+    @Test
+    public void cloneTe() {
         try {
             UserClone userA = new UserClone();
             UserClone userC = new UserClone();
@@ -412,8 +476,8 @@ public class test {
             UserClone userD = userC;
             userA.setUsername("petter");
             UserClone userB = (UserClone) userA.clone();
-            System.out.println(userA==userB);
-            System.out.println(userC==userD);
+            System.out.println(userA == userB);
+            System.out.println(userC == userD);
             System.out.println(userB);//Clone A 与 B 是两个独立的对象
             System.out.println(userD);// 而普通的复制 就直接指向有的内存
         } catch (CloneNotSupportedException e) {

@@ -12,7 +12,7 @@ import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.DbColumnType;
 import com.baomidou.mybatisplus.generator.config.rules.IColumnType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
-import com.springboott.ttdemo.exception.CustomException;
+import com.springboott.ttdemo.config.exception.CustomException;
 
 import java.util.*;
 
@@ -121,7 +121,7 @@ public class SuperGenerator {
                 // 自定义 mapper 父类
                 //.setSuperMapperClass("com.fangzhizun.framework.mapper.BaseMapper")
                 // 自定义 controller 父类
-                //.setSuperControllerClass("com.fangzhizun.framework.controller.SuperController")
+                .setSuperControllerClass("com.springboott.ttdemo.config.controller.SuperController")
                 // 自定义 service 实现类父类
                 .setSuperServiceImplClass(null)
                 //.setSuperServiceImplClass("com.fangzhizun.framework.service.impl.BaseServiceImpl")
@@ -196,8 +196,9 @@ public class SuperGenerator {
             // 自定义输出文件目录
             @Override
             public String outputFile(TableInfo tableInfo) {
-//                return getResourcePath(seniority) + "/mapper/" + tableInfo.getEntityName() + "Mapper.xml";
-                return getJavaPath(seniority)+"/com/springboott/ttdemo" + "/mapper/" + tableInfo.getEntityName() + "Mapper.xml";
+                //resource下的mapper
+                return getResourcePath(seniority) + "/mapper/" + tableInfo.getEntityName() + "Mapper.xml";
+//                return getJavaPath(seniority)+"/com/springboott/ttdemo" + "/mapper/" + tableInfo.getEntityName() + "Mapper.xml";
             }
         }));
     }

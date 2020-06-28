@@ -33,5 +33,11 @@ public class TransactionTest {
 //        testService.toDoOpenTran(false);
     }
 
+    @Test
+    public void translRest() {
+        //测试请求rest 事务异常 失败，下次继续
+        testService.transRest();
+    }
+
 
 }

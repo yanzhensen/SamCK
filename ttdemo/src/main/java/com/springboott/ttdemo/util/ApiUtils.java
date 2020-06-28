@@ -1,6 +1,7 @@
 package com.springboott.ttdemo.util;
 
-import com.springboott.ttdemo.enums.ErrorCodeEnum;
+import com.springboott.ttdemo.config.enums.ErrorCodeEnum;
+import com.springboott.ttdemo.config.exception.ApiAssert;
 import com.springboott.ttdemo.po.AllTypeEntity;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -157,11 +158,18 @@ public abstract class ApiUtils {
                             if (declaredField.getType().toString().contains("LocalDateTime")) {
                                 if (declaredField.getName().equals(mapKey)) {
                                     String value = map.get(mapKey).toString();
-                                    if (value.indexOf(".0") > 0) {
-                                        value = value.substring(0, value.length() - 2);
+                                    LocalDateTime times = null;
+                                    try {
+                                        //专门针对 LocalDateTime 带T输出的字符串
+                                        times = LocalDateTime.parse(value);
+                                    } catch (Exception e) {
+                                        //数据库时间字段读出来为.0 先去.0  尾缀
+                                        if (value.indexOf(".0") > 0) {
+                                            value = value.substring(0, value.length() - 2);
+                                        }
+                                        Timestamp timestamp = Timestamp.valueOf(value);
+                                        times = timestamp.toLocalDateTime();
                                     }
-                                    Timestamp timestamp = Timestamp.valueOf(value);
-                                    LocalDateTime times = timestamp.toLocalDateTime();
                                     declaredField.set(t, times);
                                     break;
                                 }

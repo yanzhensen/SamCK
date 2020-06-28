@@ -15,6 +15,8 @@ public interface TestService extends IService<User> {
 
     void toDoOpenTran(Boolean error);
 
+    void transRest();
+
     void update1();
 
     void update2();

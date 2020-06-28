@@ -133,4 +133,16 @@ public class LocalDateTimeUtils {
         return (int) (LocalDate.parse(EndTime).toEpochDay() - LocalDate.parse(beginTime).toEpochDay());
     }
 
+    /**
+     * 计算天数 2019-11-17#2020-02-16 相差91天 未包括当天
+     * 包括当天得 +1天 localdate类型
+     *
+     * @param beginTime
+     * @param EndTime
+     * @return
+     */
+    public static int betweenDays(LocalDate beginTime, LocalDate EndTime) {
+        return (int) (EndTime.toEpochDay() - beginTime.toEpochDay());
+    }
+
 }

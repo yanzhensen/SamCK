@@ -1,4 +1,4 @@
-package com.springboott.ttdemo.exception;
+package com.springboott.ttdemo.config.exception;
 
 import lombok.*;
 

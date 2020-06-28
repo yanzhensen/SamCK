@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.generator.config.converts.MySqlTypeConvert;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class MpGenerator {
     public static void main(String[] args) {
         SuperGenerator mysqlGenerator = new SuperGenerator();
         mysqlGenerator.generator("Sam", 1, "",
-                new String[] { "user_role","role","role_permission","permission" });
+                new String[]{"user_role", "role", "role_permission", "permission"});
         /*AutoGenerator mpg = new AutoGenerator();
         // 全局配置
         GlobalConfig gc = new GlobalConfig();

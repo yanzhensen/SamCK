@@ -1,4 +1,4 @@
-package com.springboott.ttdemo.util;
+package com.springboott.ttdemo.config.response;
 
 import java.io.Serializable;
 
@@ -56,7 +56,14 @@ public class Result<T> implements Serializable {
         return new Result(200, "成功", null);
     }
 
-
+    /**
+     * 返回成功消息
+     *
+     * @return 成功消息
+     */
+    public static Result success(String msg, Object obj) {
+        return new Result(200, msg, obj);
+    }
 
 
 }
