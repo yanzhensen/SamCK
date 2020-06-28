@@ -2,9 +2,9 @@ package com.springboott.ttdemo.util;
 
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
-import com.springboott.ttdemo.enums.ErrorCodeEnum;
-import com.springboott.ttdemo.exception.ApiException;
-import com.springboott.ttdemo.exception.ErrorCode;
+import com.springboott.ttdemo.config.enums.ErrorCodeEnum;
+import com.springboott.ttdemo.config.exception.ApiException;
+import com.springboott.ttdemo.config.exception.ErrorCode;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.apache.commons.collections.MapUtils;
