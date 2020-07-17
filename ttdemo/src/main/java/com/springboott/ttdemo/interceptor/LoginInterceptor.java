@@ -28,7 +28,7 @@ public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         //OPTIONS请求不拦截（用户登录发送POST请求前会先发OPTIONS请求，如果拦截了会登录不成功）
-        System.out.println("请求路径：" + request.getRequestURI() + "，请求方式： " + request.getMethod());
+        System.out.println("请求路径：" + request.getRequestURI() + " 请求方式： " + request.getMethod());
 //        if(true){
 //            return true;
 //        }

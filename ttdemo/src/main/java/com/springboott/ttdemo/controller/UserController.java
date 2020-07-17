@@ -8,11 +8,11 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.springboott.ttdemo.config.controller.SuperController;
 import com.springboott.ttdemo.config.enums.ErrorCodeEnum;
+import com.springboott.ttdemo.config.exception.ApiAssert;
 import com.springboott.ttdemo.config.response.ApiResponses;
+import com.springboott.ttdemo.config.response.Result;
 import com.springboott.ttdemo.po.User;
 import com.springboott.ttdemo.service.UserService;
-import com.springboott.ttdemo.config.exception.ApiAssert;
-import com.springboott.ttdemo.config.response.Result;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -49,10 +49,10 @@ public class UserController extends SuperController {
     })
     @GetMapping
     public ApiResponses<JSONObject> userList(@RequestParam(name = "search", defaultValue = "") String search,
-                                            @RequestParam(name = "limit", defaultValue = "10") Integer limit,
-                                            @RequestParam(name = "offset", defaultValue = "0") Integer offset,
-                                            @RequestParam(name = "sort", defaultValue = "id") String sort,
-                                            @RequestParam(name = "sortOrder", defaultValue = "false") Boolean sortOrder) {
+                                             @RequestParam(name = "limit", defaultValue = "10") Integer limit,
+                                             @RequestParam(name = "offset", defaultValue = "0") Integer offset,
+                                             @RequestParam(name = "sort", defaultValue = "id") String sort,
+                                             @RequestParam(name = "sortOrder", defaultValue = "false") Boolean sortOrder) {
         PageHelper.offsetPage(offset, limit);
         //新增模糊搜索
         QueryWrapper<User> queryWrapper = new QueryWrapper<User>();
@@ -70,8 +70,7 @@ public class UserController extends SuperController {
     @PostMapping
     public ApiResponses<Void> insertUser(@RequestBody User user) {
         System.out.println("user = " + user);
-//        Boolean result = userService.save(user);
-        ApiAssert.isTrue(ErrorCodeEnum.BAD_ADD_FAILURE, false);
+        ApiAssert.isTrue(ErrorCodeEnum.BAD_ADD_FAILURE, userService.save(user));
         return success();
     }
 
@@ -107,7 +106,6 @@ public class UserController extends SuperController {
     public Result<String> userList(User user) {
         QueryWrapper<User> queryWrapper = new QueryWrapper<User>();
         queryWrapper.lambda().eq(User::getUsername, "五位两");
-//        queryWrapper.between("id",1,50);
         List<User> lr = userService.list(queryWrapper);
         if (!lr.isEmpty()) {
             String json = JSON.toJSONString(lr);

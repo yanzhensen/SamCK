@@ -313,10 +313,10 @@ public class test {
 
     @Test
     public void publicTest() throws Exception {
-        LocalDateTime now = LocalDateTime.now();
-        LocalDateTime time = LocalDateTime.parse(now.toString());
-        System.out.println("time = " + time);
-
+        JSONObject object = JSONObject.parseObject(null);
+        System.out.println("object = " + object);
+        String water = object.getString("water");
+        System.out.println("water = " + water);
     }
 
     @Test
