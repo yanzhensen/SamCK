@@ -12,7 +12,7 @@ import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.DbColumnType;
 import com.baomidou.mybatisplus.generator.config.rules.IColumnType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
-import com.springboott.ttdemo.config.exception.CustomException;
+import com.springboott.ttdemo.common.exception.CustomException;
 
 import java.util.*;
 

@@ -1,7 +1,7 @@
 package com.springboott.ttdemo.util;
 
-import com.springboott.ttdemo.config.enums.ErrorCodeEnum;
-import com.springboott.ttdemo.config.exception.ApiAssert;
+import com.springboott.ttdemo.common.enums.ErrorCodeEnum;
+import com.springboott.ttdemo.common.exception.ApiAssert;
 import com.springboott.ttdemo.po.AllTypeEntity;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

@@ -1,7 +1,7 @@
 package com.springboott.ttdemo.controller;
 
 import com.google.common.util.concurrent.RateLimiter;
-import com.springboott.ttdemo.config.response.Result;
+import com.springboott.ttdemo.common.response.Result;
 import com.springboott.ttdemo.util.RedisUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;

@@ -1,7 +1,7 @@
 package com.springboott.ttdemo.util;
 
 
-import com.springboott.ttdemo.config.enums.ScaleEnum;
+import com.springboott.ttdemo.common.enums.ScaleEnum;
 
 import java.math.BigDecimal;
 

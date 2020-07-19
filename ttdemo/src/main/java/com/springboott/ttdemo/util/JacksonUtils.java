@@ -18,7 +18,7 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
-import com.springboott.ttdemo.config.exception.CustomException;
+import com.springboott.ttdemo.common.exception.CustomException;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.springframework.http.converter.HttpMessageConverter;

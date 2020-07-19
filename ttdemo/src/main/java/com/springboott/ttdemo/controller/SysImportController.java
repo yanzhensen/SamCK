@@ -2,9 +2,9 @@ package com.springboott.ttdemo.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
-import com.springboott.ttdemo.config.enums.ErrorCodeEnum;
-import com.springboott.ttdemo.config.exception.ApiAssert;
-import com.springboott.ttdemo.config.response.Result;
+import com.springboott.ttdemo.common.enums.ErrorCodeEnum;
+import com.springboott.ttdemo.common.exception.ApiAssert;
+import com.springboott.ttdemo.common.response.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.poi.openxml4j.exceptions.NotOfficeXmlFileException;
