@@ -1,9 +1,9 @@
 package com.springboott.ttdemo.config.enums;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
-import com.fangzhizun.common.exception.UnknownEnumException;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.springboott.ttdemo.config.exception.UnknownEnumException;
 
 /**
  * <p>

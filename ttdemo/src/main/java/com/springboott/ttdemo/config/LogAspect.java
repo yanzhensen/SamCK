@@ -58,7 +58,7 @@ public class LogAspect {
         String requestMethod = request.getMethod();
         //请求项目路径
         String uri = request.getRequestURI();
-        logger.info("请求域名：{},请求方式：{} 请求路径：({})", serverName, requestMethod, uri);
+//        logger.info("请求域名：{},请求方式：{} 请求路径：({})", serverName, requestMethod, uri);
         Object result;
 //        currentTime.set(System.currentTimeMillis());
         result = joinPoint.proceed();
