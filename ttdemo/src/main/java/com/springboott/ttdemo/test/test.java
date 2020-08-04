@@ -5,6 +5,8 @@ import com.springboott.ttdemo.po.User;
 import com.springboott.ttdemo.po.UserClone;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -20,6 +22,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class test {
+    private final Logger logger = LoggerFactory.getLogger(test.class);
+
     public static void main(String[] args) throws ParseException {
 //        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 //        SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd");
@@ -313,10 +317,10 @@ public class test {
 
     @Test
     public void publicTest() throws Exception {
-        JSONObject object = JSONObject.parseObject(null);
-        System.out.println("object = " + object);
-        String water = object.getString("water");
-        System.out.println("water = " + water);
+        String str ="{'water':{'lastReading':'82.0','thisReading':[]},'electrit':{'lastReading':'3900.0','thisReading':[]},'gas':{'lastReading':'0.0','thisReading':[]},'hotwater':{'lastReading':'37.1','thisReading':[]},'hotair':{'lastReading':'0.0','thisReading':[]}}";
+        JSONObject object = JSONObject.parseObject(str);
+        String string = object.getJSONObject("water").getString("lastReading");
+        System.out.println("string = " + string);
     }
 
     @Test

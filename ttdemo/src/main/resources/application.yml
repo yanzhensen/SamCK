@@ -64,6 +64,12 @@ spring:
       enabled: true #是否启用http上传处理
       max-file-size: 10MB #最大请求文件的大小
       max-request-size: 10MB #设置单个文件最大长度
+  rabbitmq: #配置rabbitMq 服务器
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+#    connection-timeout: 20000
 #logging:
 #  path: D:/ttdemo
 #  file: a.log

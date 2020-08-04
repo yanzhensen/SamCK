@@ -11,6 +11,7 @@ public class TtdemoApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(TtdemoApplication.class, args);
+        System.out.println("http://localhost:8089/ttdemo/doc.html");
     }
 
 }
