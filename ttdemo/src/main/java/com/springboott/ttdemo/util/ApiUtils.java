@@ -34,8 +34,10 @@ public abstract class ApiUtils {
         try {
             // 生成实现指定摘要算法的 MessageDigest 对象。
             MessageDigest md = MessageDigest.getInstance("MD5");
+            md.reset();
             // 使用指定的字节数组更新摘要。
-            md.update(plainText.getBytes());
+//            md.update(plainText.getBytes());
+            md.update(plainText.getBytes("UTF-8"));
             // 通过执行诸如填充之类的最终操作完成哈希计算。
             byte b[] = md.digest();
             // 生成具体的md5密码到buf数组

@@ -118,7 +118,7 @@ public class LocalDateTimeUtils {
 
     //获取当前时间
     public static String getCurrentTimes() {
-        return formatTime(LocalDateTime.now(), "yyyy-MM-dd HH:mm:sss");
+        return formatTime(LocalDateTime.now(), "yyyy-MM-dd HH:mm:ss SSS");
     }
 
     //格式LocalDate

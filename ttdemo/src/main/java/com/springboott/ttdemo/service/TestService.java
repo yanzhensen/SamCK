@@ -25,4 +25,24 @@ public interface TestService extends IService<User> {
 
     void update4();
 
+    /**
+     * 测试异步处理
+     *
+     * @param expiredKey
+     */
+    void solveExpireK(String expiredKey);
+
+    /**
+     * 测试异步处理
+     *
+     * @param expiredKey
+     */
+    void solveExpireB(String expiredKey);
+
+    /**
+     * 并发购买商品
+     */
+    void buyGoods();
+
+    void pow();
 }

@@ -1,6 +1,10 @@
 package com.springboott.ttdemo.test;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.parser.Feature;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.springboott.ttdemo.po.User;
 import com.springboott.ttdemo.po.UserClone;
 import org.apache.commons.lang3.StringUtils;
@@ -317,10 +321,25 @@ public class test {
 
     @Test
     public void publicTest() throws Exception {
-        String str ="{'water':{'lastReading':'82.0','thisReading':[]},'electrit':{'lastReading':'3900.0','thisReading':[]},'gas':{'lastReading':'0.0','thisReading':[]},'hotwater':{'lastReading':'37.1','thisReading':[]},'hotair':{'lastReading':'0.0','thisReading':[]}}";
+        String str = "{'water':{'lastReading':'82.0','thisReading':[]},'electrit':{'lastReading':'3900.0','thisReading':[]},'gas':{'lastReading':'0.0','thisReading':[]},'hotwater':{'lastReading':'37.1','thisReading':[]},'hotair':{'lastReading':'0.0','thisReading':[]}}";
         JSONObject object = JSONObject.parseObject(str);
         String string = object.getJSONObject("water").getString("lastReading");
         System.out.println("string = " + string);
+
+//        LocalDate jrrBe = LocalDate.parse("2020-08-29");
+//        LocalDate jrrEn = LocalDate.parse("2021-02-28");
+        LocalDate jrrBe = LocalDate.parse("2020-08-28");
+        LocalDate jrrEn = LocalDate.parse("2021-02-27");
+        int[] rs = new int[3];
+        rs[0] = jrrBe.until(jrrEn).getYears();
+        rs[1] = jrrBe.until(jrrEn).getMonths();
+        rs[2] = jrrBe.until(jrrEn).getDays();
+        for (int r : rs) {
+            System.out.println(r);
+        }
+        Period per = Period.between(jrrBe, jrrEn.plusDays(1));
+        System.out.println("per = " + per);
+
     }
 
     @Test

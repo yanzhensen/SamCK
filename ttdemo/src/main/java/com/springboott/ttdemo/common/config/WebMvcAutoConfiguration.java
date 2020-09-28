@@ -7,8 +7,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
-import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.request.RequestContextListener;
@@ -113,6 +111,7 @@ public class WebMvcAutoConfiguration implements WebMvcConfigurer {
     private String USERNAME;
     @Value("${datasource.password}")
     private String PASSWORD;
+
     @Bean
     public JdbcDataSourceProvider dynamicDataSourceProvider() {
         String sql = "SELECT * FROM datasource";
@@ -158,11 +157,5 @@ public class WebMvcAutoConfiguration implements WebMvcConfigurer {
         };
     }
 
-    @Bean
-    public RedisMessageListenerContainer container(RedisConnectionFactory connectionFactory) {
-        //redis
-        RedisMessageListenerContainer container = new RedisMessageListenerContainer();
-        container.setConnectionFactory(connectionFactory);
-        return container;
-    }
+
 }

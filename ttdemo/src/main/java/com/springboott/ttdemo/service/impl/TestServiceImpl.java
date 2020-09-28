@@ -3,18 +3,31 @@ package com.springboott.ttdemo.service.impl;
 import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.springboott.ttdemo.common.enums.ErrorCodeEnum;
+import com.springboott.ttdemo.common.exception.ApiAssert;
+import com.springboott.ttdemo.dao.ProductMapper;
 import com.springboott.ttdemo.dao.UserMapper;
+import com.springboott.ttdemo.po.Product;
 import com.springboott.ttdemo.po.User;
 import com.springboott.ttdemo.service.TestService;
 import com.springboott.ttdemo.service.UserService;
+import com.springboott.ttdemo.util.LocalDateTimeUtils;
+import com.springboott.ttdemo.util.RestTemplateUtils;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
@@ -34,8 +47,8 @@ import java.util.Map;
 @DS("test")
 public class TestServiceImpl extends ServiceImpl<UserMapper, User> implements TestService {
 
-    @Autowired
-    private TestService testService;
+    //    @Autowired
+//    private TestService testService;
     @Autowired
     private UserService userService;
     @Resource
@@ -44,6 +57,10 @@ public class TestServiceImpl extends ServiceImpl<UserMapper, User> implements Te
     private DataSourceTransactionManager transactionManager;
     @Autowired
     private RestTemplate restTemplate;
+    @Resource
+    private ProductMapper productMapper;
+    @Resource
+    private RestTemplateUtils restTemplateUtils;
 
     //默认事务
     @Override
@@ -149,4 +166,57 @@ public class TestServiceImpl extends ServiceImpl<UserMapper, User> implements Te
         //制造异常
 //        int e = 1 / 0;
     }
+
+    @Override
+    @Async(value = "taskExecutorX")
+    public void solveExpireK(String expiredKey) {
+        try {
+            Thread.sleep(1000);
+            System.out.println("###### " + LocalDateTimeUtils.getCurrentTimes() + " AAAAA = " + expiredKey + "（当前线程" + Thread.currentThread().getName() + "）");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    @Async(value = "taskExecutorX")
+    public void solveExpireB(String expiredKey) {
+        try {
+            Thread.sleep(2000);
+            System.out.println("###### " + LocalDateTimeUtils.getCurrentTimes() + " BBBBB = " + expiredKey + "（当前线程" + Thread.currentThread().getName() + "）");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void buyGoods() {
+        System.out.println("查询商品：" + LocalDateTimeUtils.getCurrentTimes());
+        Product pud = productMapper.selectById(3);
+        Product product = new Product();
+        product.setId(3);
+        product.setProductNum(pud.getProductNum() - 1);
+        productMapper.updateById(product);
+        System.out.println("修改商品：" + LocalDateTimeUtils.getCurrentTimes() + " 当前数量：" + (pud.getProductNum() - 1));
+        Product les = productMapper.selectById(3);
+        System.out.println("读取数据库剩余数量 = " + les.getProductNum());
+    }
+
+    @Override
+    @Async
+    public void pow() {
+        String random = RandomStringUtils.random(1, 'c', 's');
+        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+        map.set("co", random);
+        map.set("msg", ++key + "");
+//        restTemplate.getForObject("http://localhost:8089/ttdemo/threadTest/boom?co={co}", String.class, map);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1aWQiOjEsImNvIjoicWpneSIsImV4cCI6MTYwMDM5NTYzNCwiaWF0IjoxNTk5Nzk1NjM0fQ.wwwlyWO-HygcF-2ISAjVJNJgUxQes3yqI2q1wz809x4");
+        HttpEntity entity = new HttpEntity<>(headers);
+        restTemplate.exchange("http://localhost/apartment/billsNumber", HttpMethod.GET, entity, String.class);
+//        restTemplate.getForObject("http://localhost:8089/ttdemo/threadTest/pubMsg?msg={msg}", String.class, map);
+    }
+
+    private int key = 0;
 }
